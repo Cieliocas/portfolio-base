@@ -3,22 +3,22 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  
+
   /* === PALETA DEVOPS / HPC === 
      Mudança para tons de Terminal Moderno 
   */
-  
+
   /* Ciano/Turquesa Neon (Acentos e Destaques) */
   --first-hue: 174;
   --sat: 64%;
   --lig: 50%;
-  
+
   /* Azul "Slate" Profundo (Backgrounds) */
   --second-hue: 219;
 
   --first-color: hsl(var(--first-hue), var(--sat), var(--lig));
   --first-color-alt: hsl(var(--first-hue), var(--sat), 45%); /* Um pouco mais escuro para hover */
-  
+
   /* Cores do Tema Escuro (Padrão) */
   --title-color: hsl(var(--second-hue), 15%, 96%);
   --text-color: hsl(var(--second-hue), 8%, 75%);
@@ -127,13 +127,13 @@ img {
 body.light-theme {
   /* Títulos em azul marinho profundo (sério e profissional) */
   --title-color: hsl(var(--second-hue), 40%, 15%);
-  
+
   /* Texto em cinza chumbo */
   --text-color: hsl(var(--second-hue), 15%, 35%);
-  
+
   /* Fundo branco azulado (Gelo) - Estilo Cloud Clean */
   --body-color: hsl(var(--second-hue), 60%, 98%);
-  
+
   /* Container branco puro */
   --container-color: #fff;
 }
@@ -330,13 +330,13 @@ body.light-theme {
 .home__education {
   color: var(--text-color);
   margin-bottom: 2.5rem;
-  display: inline-block;  /* Define como bloco em linha */
-  white-space: nowrap;    /* A "MÁGICA": Proíbe quebra de linha dentro deste elemento */
+  display: inline-block; /* Define como bloco em linha */
+  white-space: nowrap; /* A "MÁGICA": Proíbe quebra de linha dentro deste elemento */
   position: relative;
 }
 /* Truque para manter a altura da linha mesmo quando o texto some */
 .home__education::before {
-  content: '\200b'; /* Adiciona um espaço invisível de largura zero */
+  content: "\200b"; /* Adiciona um espaço invisível de largura zero */
 }
 
 .home__name {
@@ -538,7 +538,7 @@ body.light-theme {
   font-size: var(--normal-font-size);
   font-weight: var(--font-medium);
   line-height: 18px;
-  /* Fix overflow */
+  /* Fix overflow com white-space, overflow e text-overflow */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -565,7 +565,7 @@ body.light-theme {
 .services__title {
   font-size: var(--h3-font-size);
   margin-bottom: 2.5rem;
-  /* Fix overflow */
+  /* Fix overflow para títulos de serviços */
   white-space: normal;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -663,10 +663,8 @@ body.light-theme {
 /*=============== WORK ===============*/
 .work__container {
   padding-top: 1rem;
-  /* Mudança: max-content força a coluna a ter o tamanho do card, não da tela */
-  grid-template-columns: repeat(2, max-content); 
-  gap: 1.5rem; /* Distância fixa e controlada entre os cards */
-  justify-content: center; /* Centraliza o bloco de cards na tela */
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
   justify-items: center;
 }
 
@@ -706,7 +704,7 @@ body.light-theme {
   font-size: var(--normal-font-size);
   font-weight: var(--font-medium);
   margin-bottom: .25rem;
-  /* Fix overflow */
+  /* Fix overflow para título do projeto */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -958,10 +956,10 @@ body.light-theme {
 
 /* =============== TYPED JS CURSOR =============== */
 .typed-cursor {
-  display: inline;         /* Força ser tratado como texto contínuo */
-  font-size: inherit;      /* Herda o tamanho exato da fonte do texto */
-  color: var(--first-color); /* Cor Ciano Neon */
-  margin-left: 2px;        /* Pequeno espaço para não grudar na última letra */
+  display: inline;
+  font-size: inherit;
+  color: var(--first-color);
+  margin-left: 2px;
   font-weight: var(--font-medium);
 }
 
@@ -1007,6 +1005,7 @@ body.light-theme {
     column-gap: .25rem;
   }
 
+  /* Garante 1 coluna em mobile pequeno */
   .work__container {
     grid-template-columns: 1fr;
     gap: 1rem;
@@ -1151,15 +1150,15 @@ body.light-theme {
   .services__card {
     padding: 5rem 2rem 1.5rem;
   }
-  
-.work__container {
-    gap: 2rem; /* Reduzido de 3rem para 2rem para ficarem mais juntos */
-    grid-template-columns: repeat(2, max-content); /* Mantém eles juntos */
+
+  .work__container {
+    gap: 2rem;
+    grid-template-columns: repeat(2, max-content);
     justify-content: center;
   }
   .work__card {
     padding: 1.25rem;
-    max-width: 300px; /* Leve aumento para padronizar */
+    max-width: 300px;
   }
   .work__img {
     margin-bottom: 1rem;
