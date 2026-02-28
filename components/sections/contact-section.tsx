@@ -18,7 +18,7 @@ const links = [
   },
   {
     label: 'Email',
-    value: 'francielioevangelista@hotmail.com',
+    value: 'Meu e-mail',
     href: 'mailto:francielioevangelista@hotmail.com',
     icon: Mail,
   },

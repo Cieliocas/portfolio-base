@@ -498,10 +498,12 @@
 
 .quick-dock {
   position: fixed;
-  left: 50%;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
   bottom: 18px;
-  transform: translateX(-50%) translateY(24px);
-  width: auto;
+  transform: translateY(24px);
+  width: max-content;
   max-width: calc(100vw - 24px);
   z-index: 85;
   opacity: 0;
@@ -510,7 +512,7 @@
 
 .quick-dock-visible {
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
@@ -563,6 +565,39 @@
 .quick-theme-btn:hover {
   border-color: rgba(23, 219, 255, 0.45);
   color: #17dbff;
+}
+
+@media (max-width: 640px) {
+  .quick-dock {
+    bottom: 10px;
+    width: calc(100vw - 16px);
+    max-width: calc(100vw - 16px);
+  }
+
+  .quick-dock-inner {
+    width: 100%;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 6px;
+    overflow-x: hidden;
+  }
+
+  .quick-link {
+    flex: 1 1 0;
+    min-width: 0;
+    text-align: center;
+    padding: 8px 4px;
+    font-size: 9px;
+    letter-spacing: 0.09em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .quick-theme-btn {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+  }
 }
 
 .typing-caret {
