@@ -568,7 +568,12 @@
 .typing-caret {
   display: inline-block;
   margin-left: 4px;
-  color: var(--cyber-cyan);
+  color: #17dbff;
+  text-shadow:
+    0 0 6px rgba(23, 219, 255, 0.95),
+    0 0 14px rgba(23, 219, 255, 0.75),
+    0 0 22px rgba(23, 219, 255, 0.55);
+  font-weight: 700;
   animation: typingBlink 1s step-end infinite;
 }
 

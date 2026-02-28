@@ -25,7 +25,7 @@ const links = [
   {
     label: 'Telefone',
     value: '+55 (86) 9 8821-7293',
-    href: 'tel:+5586988217293',
+    href: 'https://wa.me/5586988217293?text=Ola%2C%20Francielio!%20Vim%20pelo%20seu%20portfolio.',
     icon: Phone,
   },
 ]
