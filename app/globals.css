@@ -486,6 +486,7 @@
 @keyframes pageEnter { from { opacity: 0; } to { opacity: 1; } }
 @keyframes bridgePulse { 0%, 100% { opacity: 0.45; transform: scaleX(0.96); } 50% { opacity: 0.9; transform: scaleX(1); } }
 @keyframes signFlicker { 0%, 18%, 22%, 53%, 57%, 100% { opacity: 1; } 20%, 55% { opacity: 0.55; } }
+@keyframes typingBlink { 0%, 50% { opacity: 1; } 51%, 100% { opacity: 0; } }
 
 .reveal {
   opacity: 0;
@@ -562,6 +563,13 @@
 .quick-theme-btn:hover {
   border-color: rgba(23, 219, 255, 0.45);
   color: #17dbff;
+}
+
+.typing-caret {
+  display: inline-block;
+  margin-left: 4px;
+  color: var(--cyber-cyan);
+  animation: typingBlink 1s step-end infinite;
 }
 
 [data-theme='light'] .device-shell {

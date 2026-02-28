@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Sparkles, Server, Cloud, Cpu } from 'lucide-react'
 
@@ -9,7 +10,24 @@ const highlights = [
   { icon: Cpu, label: 'AI Infrastructure + Agents' },
 ]
 
+const heroName = 'Franciélio Castro'
+
 export function HeroSection() {
+  const [typedName, setTypedName] = useState('')
+
+  useEffect(() => {
+    let i = 0
+    const timer = setInterval(() => {
+      i += 1
+      setTypedName(heroName.slice(0, i))
+      if (i >= heroName.length) {
+        clearInterval(timer)
+      }
+    }, 85)
+
+    return () => clearInterval(timer)
+  }, [])
+
   return (
     <section className="hero-bg relative overflow-hidden pb-10 pt-8">
       <div className="space-y-4">
@@ -25,7 +43,10 @@ export function HeroSection() {
             </p>
 
             <div className="space-y-2.5">
-              <h1 className="font-heading text-[1.65rem] leading-tight text-white">Francielio Castro</h1>
+              <h1 className="font-heading text-[1.65rem] leading-tight text-white">
+                {typedName}
+                <span className="typing-caret" aria-hidden="true">|</span>
+              </h1>
               <p className="text-sm leading-relaxed text-white/75">
                 Infraestrutura, Cloud e HPC com foco em confiabilidade, automacao e observabilidade.
               </p>
