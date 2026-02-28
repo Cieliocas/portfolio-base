@@ -50,21 +50,21 @@ export function ContactSection() {
                 href={item.href}
                 target={item.href.startsWith('http') ? '_blank' : undefined}
                 rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="glass-panel flex items-center gap-4 p-5 transition-transform hover:-translate-y-0.5"
+                className="glass-panel flex w-full min-w-0 items-center gap-3 p-4 sm:gap-4 sm:p-5 transition-transform hover:-translate-y-0.5"
               >
-                <span className="rounded-lg border border-white/15 bg-white/5 p-2.5">
+                <span className="shrink-0 rounded-lg border border-white/15 bg-white/5 p-2.5">
                   <Icon className="h-4 w-4 text-cyber-cyan" />
                 </span>
-                <span className="min-w-0">
-                  <span className="block text-[11px] uppercase tracking-[0.16em] text-white/45">{item.label}</span>
-                  <span className="block truncate text-sm text-white/85">{item.value}</span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-[10px] uppercase tracking-[0.14em] text-white/45">{item.label}</span>
+                  <span className="block break-all text-sm leading-snug text-white/85 sm:break-normal">{item.value}</span>
                 </span>
               </a>
             )
           })}
         </div>
 
-        <div className="glass-panel flex flex-wrap items-center justify-between gap-4 p-6">
+        <div className="glass-panel flex flex-col items-start gap-4 p-5 sm:flex-row sm:items-center sm:justify-between sm:p-6">
           <p className="max-w-2xl text-sm leading-relaxed text-white/75">
             Disponivel para estagio e projetos em infraestrutura, platform engineering, cloud e AI ops.
           </p>
@@ -73,7 +73,7 @@ export function ContactSection() {
               href="/resume-francielio.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-neon-cyan"
+              className="btn-neon-cyan w-full justify-center sm:w-auto"
             >
               <Download className="h-4 w-4" />
               Baixar CV
