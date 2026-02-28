@@ -70,22 +70,13 @@ export function ContactSection() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="/resume-linkedin.pdf"
+              href="/resume-francielio.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-neon-cyan"
             >
               <Download className="h-4 w-4" />
-              CV LinkedIn
-            </a>
-            <a
-              href="/resume-francielio.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-neon-pink"
-            >
-              <Download className="h-4 w-4" />
-              CV Pessoal
+              Baixar CV
             </a>
           </div>
         </div>

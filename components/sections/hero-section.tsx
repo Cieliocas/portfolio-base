@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image'
-import { Download, Sparkles, Server, Cloud, Cpu } from 'lucide-react'
+import { Sparkles, Server, Cloud, Cpu } from 'lucide-react'
 
 const highlights = [
   { icon: Server, label: 'HPC Clusters' },
@@ -81,17 +81,6 @@ export function HeroSection() {
               </div>
             </div>
           </div>
-        </div>
-
-        <div className="flex flex-wrap gap-2.5 pt-1">
-          <a href="/resume-linkedin.pdf" target="_blank" rel="noopener noreferrer" className="btn-neon-cyan">
-            <Download className="h-4 w-4" />
-            CV LinkedIn
-          </a>
-          <a href="/resume-francielio.pdf" target="_blank" rel="noopener noreferrer" className="btn-neon-pink">
-            <Download className="h-4 w-4" />
-            CV Pessoal
-          </a>
         </div>
 
         <div className="mac-terminal">

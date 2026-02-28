@@ -136,6 +136,7 @@
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.42);
   position: relative;
   overflow: hidden;
+  padding: 14px;
 }
 
 [data-theme='light'] .device-shell {
@@ -144,13 +145,18 @@
   box-shadow: 0 18px 54px rgba(16, 45, 96, 0.2);
 }
 
-.mobile-main { padding-top: 10px; }
+.mobile-main {
+  padding: 18px 18px 30px;
+}
 
 .nav-dock {
-  position: sticky;
-  top: 8px;
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(96vw, 980px);
   z-index: 80;
-  margin: 8px 10px 6px;
+  margin: 0;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(10, 15, 31, 0.78);
@@ -161,7 +167,7 @@
 .nav-scrolled { box-shadow: 0 0 32px rgba(0, 220, 255, 0.12); }
 .nav-hidden {
   opacity: 0;
-  transform: translateY(-18px);
+  transform: translateX(-50%) translateY(-140%);
   pointer-events: none;
 }
 
@@ -198,7 +204,7 @@
 }
 
 .page-enter { animation: pageEnter 0.7s ease both; }
-.hero-bg { min-height: auto; padding: 6px 18px 10px; }
+.hero-bg { min-height: auto; padding: 16px 34px 20px; }
 
 .neon-sign-board {
   border: 1px solid rgba(255, 77, 157, 0.35);
@@ -206,6 +212,9 @@
   padding: 9px 12px;
   background: rgba(255, 77, 157, 0.08);
   box-shadow: 0 0 20px rgba(255, 77, 157, 0.14);
+  width: fit-content;
+  margin-inline: auto;
+  text-align: center;
 }
 
 [data-theme='light'] .neon-sign-board {
@@ -275,7 +284,7 @@
 .ambient-orb-pink { width: 220px; height: 220px; right: -70px; top: 150px; background: #ff4d9d; }
 
 .section-wrap {
-  padding: 56px 18px 8px;
+  padding: 64px 34px 18px;
   position: relative;
 }
 .section-head { display: flex; flex-direction: column; gap: 10px; }
@@ -303,7 +312,7 @@
 
 .scroll-bridge {
   height: 34px;
-  margin: 14px 26px 10px;
+  margin: 20px 42px 14px;
   border-radius: 999px;
   background: linear-gradient(90deg, transparent, rgba(23, 219, 255, 0.45), rgba(255, 77, 157, 0.45), transparent);
   opacity: 0.65;
@@ -388,6 +397,8 @@
 
 .marquee-shell {
   background: rgba(10, 18, 38, 0.5);
+  margin: 8px 14px 0;
+  border-radius: 14px;
 }
 
 [data-theme='light'] .marquee-shell {
@@ -413,7 +424,7 @@
 .card-rise:hover { transform: translateY(-2px); border-color: rgba(255, 77, 157, 0.28); }
 
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes pageEnter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pageEnter { from { opacity: 0; } to { opacity: 1; } }
 @keyframes bridgePulse { 0%, 100% { opacity: 0.45; transform: scaleX(0.96); } 50% { opacity: 0.9; transform: scaleX(1); } }
 @keyframes signFlicker { 0%, 18%, 22%, 53%, 57%, 100% { opacity: 1; } 20%, 55% { opacity: 0.55; } }
 
@@ -428,7 +439,7 @@
 .quick-dock {
   position: fixed;
   left: 50%;
-  bottom: 14px;
+  bottom: 18px;
   transform: translateX(-50%) translateY(24px);
   width: min(96vw, 980px);
   z-index: 85;
@@ -449,7 +460,7 @@
   overflow-x: auto;
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
-  padding: 8px 8px 8px 10px;
+  padding: 9px 9px 9px 12px;
   background: rgba(10, 15, 31, 0.88);
   backdrop-filter: blur(12px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
@@ -538,6 +549,9 @@
 
 .footer-shell {
   background: rgba(6, 9, 21, 0.9);
+  margin: 10px 14px 2px;
+  border-radius: 14px;
+  overflow: hidden;
 }
 
 [data-theme='light'] .footer-shell {

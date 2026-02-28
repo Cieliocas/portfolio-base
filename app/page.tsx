@@ -11,8 +11,8 @@ import { FooterSection } from '@/components/sections/footer-section'
 export default function Home() {
   return (
     <div className="app-shell min-h-screen bg-background text-foreground page-enter">
+      <CyberNav />
       <div className="device-shell">
-        <CyberNav />
         <main className="mobile-main">
           <HeroSection />
           <TechMarquee />
