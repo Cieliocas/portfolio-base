@@ -289,6 +289,13 @@
 .neon-tag { border: 1px solid rgba(23, 219, 255, 0.36); background: rgba(23, 219, 255, 0.08); color: #ccf6ff; padding: 8px 12px; }
 .neon-tag-soft { border: 1px solid rgba(255, 255, 255, 0.15); background: rgba(255, 255, 255, 0.04); color: rgba(245, 247, 255, 0.86); padding: 7px 10px; }
 
+[data-theme='light'] .neon-tag {
+  border-color: rgba(0, 119, 255, 0.42);
+  background: rgba(0, 159, 245, 0.14);
+  color: #06244d;
+  box-shadow: 0 0 0 1px rgba(0, 119, 255, 0.08) inset;
+}
+
 [data-theme='light'] .neon-tag-soft {
   border-color: rgba(10, 29, 65, 0.2);
   background: rgba(10, 29, 65, 0.04);

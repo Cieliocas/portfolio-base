@@ -26,7 +26,17 @@ const cards = [
   },
 ]
 
-const macosStack = ['macOS', 'zsh', 'Homebrew', 'iTerm2', 'Raycast', 'OrbStack', 'VS Code', 'Docker CLI']
+const macosStack = [
+  'macOS',
+  'zsh',
+  'Homebrew',
+  'iTerm2',
+  'Raycast',
+  'OrbStack',
+  'GitHub Codex',
+  'Google Antigravity',
+  'AI Agents',
+]
 
 export function AboutSection() {
   const { ref, visible } = useReveal()

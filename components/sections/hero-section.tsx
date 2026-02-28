@@ -6,7 +6,7 @@ import { Sparkles, Server, Cloud, Cpu } from 'lucide-react'
 const highlights = [
   { icon: Server, label: 'HPC Clusters' },
   { icon: Cloud, label: 'DevOps & Cloud' },
-  { icon: Cpu, label: 'AI Infrastructure' },
+  { icon: Cpu, label: 'AI Infrastructure + Agents' },
 ]
 
 export function HeroSection() {

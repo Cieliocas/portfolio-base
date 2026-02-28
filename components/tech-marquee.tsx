@@ -15,6 +15,9 @@ const techs = [
   'TypeScript',
   'Cloud',
   'AI Infra',
+  'GitHub Codex',
+  'Google Antigravity',
+  'AI Agents',
   'CI/CD',
 ]
 
