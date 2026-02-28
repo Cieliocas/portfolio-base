@@ -38,7 +38,7 @@ export function TechStackSection() {
   const { ref, visible } = useReveal()
 
   return (
-    <section id="jornada" className="section-wrap px-5 md:px-8">
+    <section id="jornada" className="section-wrap">
       <div ref={ref} className={`mx-auto max-w-6xl space-y-8 reveal ${visible ? 'visible' : ''}`}>
         <div className="section-head">
           <p className="section-kicker">Jornada</p>

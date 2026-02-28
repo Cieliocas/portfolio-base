@@ -34,7 +34,7 @@ export function ContactSection() {
   const { ref, visible } = useReveal()
 
   return (
-    <section id="contato" className="section-wrap px-5 pb-20 md:px-8">
+    <section id="contato" className="section-wrap pb-20">
       <div ref={ref} className={`mx-auto max-w-6xl space-y-8 reveal ${visible ? 'visible' : ''}`}>
         <div className="section-head">
           <p className="section-kicker">Contato</p>
