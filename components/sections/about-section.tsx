@@ -57,19 +57,18 @@ export function AboutSection() {
             <span className="notes-title">Notas · Sobre mim</span>
           </div>
           <div className="notes-body">
-            <p className="notes-command">$ cat sobre_mim.md</p>
-            <p className="notes-line">
-              {'> '}Sou estudante de Ciencia da Computacao e pesquisador com atuacao em ambientes Linux,
+            <p>
+              Sou estudante de Ciencia da Computacao e pesquisador com atuacao em ambientes Linux,
               virtualizacao e computacao de alto desempenho.
             </p>
-            <p className="notes-line">
-              {'> '}Trabalho com setup e operacao de cluster usando Proxmox e SLURM, com foco em
+            <p>
+              Trabalho com setup e operacao de cluster usando Proxmox e SLURM, com foco em
               estabilidade, performance e uso eficiente de recursos.
             </p>
-            <p className="notes-command">$ cat stack_principal.txt</p>
-            <p className="notes-line">
-              {'> '}Golang para ferramentas de infraestrutura, containers, CI/CD e observabilidade
-              com Grafana + PostgreSQL para workloads tecnicos e projetos academicos.
+            <p>
+              Minha base de desenvolvimento e Golang para ferramentas de infraestrutura, containers,
+              CI/CD e observabilidade com Grafana + PostgreSQL para workloads tecnicos e projetos
+              academicos.
             </p>
           </div>
         </article>
