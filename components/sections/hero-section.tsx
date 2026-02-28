@@ -11,28 +11,31 @@ const highlights = [
 
 export function HeroSection() {
   return (
-    <section className="hero-bg relative overflow-hidden px-5 pb-16 pt-28 md:px-8 md:pt-36">
+    <section className="hero-bg relative overflow-hidden px-4 pb-16 pt-24 sm:px-5 md:px-8 md:pt-34">
       <div className="ambient-orb ambient-orb-cyan" />
       <div className="ambient-orb ambient-orb-pink" />
 
-      <div className="mx-auto grid max-w-6xl gap-10 md:grid-cols-[1.2fr_0.8fr] md:items-center">
-        <div className="space-y-6">
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-[11px] uppercase tracking-[0.16em] text-cyber-cyan">
+      <div className="mx-auto grid max-w-6xl gap-8 md:grid-cols-[1.2fr_0.8fr] md:items-center md:gap-10">
+        <div className="space-y-5">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-[10px] uppercase tracking-[0.16em] text-cyber-cyan sm:text-[11px]">
             <Sparkles className="h-3.5 w-3.5" />
             Computer Science @ UFPI
           </p>
 
-          <div className="space-y-4">
-            <h1 className="font-heading text-3xl leading-tight text-white sm:text-4xl md:text-5xl">
+          <div className="space-y-3.5">
+            <h1 className="font-heading text-[1.8rem] leading-tight text-white sm:text-4xl md:text-5xl">
               Francielio Castro
             </h1>
-            <p className="max-w-2xl text-base leading-relaxed text-white/75 md:text-lg">
+            <p className="max-w-2xl text-sm leading-relaxed text-white/75 sm:text-base md:text-lg">
               Construo plataformas confiaveis para infraestrutura, cloud e workloads de alta performance.
               Hoje atuo com Linux, Proxmox, SLURM, Docker e automacoes focadas em escala.
             </p>
+            <p className="text-xs uppercase tracking-[0.14em] text-white/55 sm:text-[11px]">
+              Workflow diario em macOS com foco em terminal, automacao e observabilidade.
+            </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2.5 sm:gap-3">
             {highlights.map((item) => {
               const Icon = item.icon
               return (
@@ -44,7 +47,7 @@ export function HeroSection() {
             })}
           </div>
 
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex flex-wrap gap-2.5 pt-1 sm:gap-3 sm:pt-2">
             <a
               href="/resume-linkedin.pdf"
               target="_blank"
@@ -78,7 +81,7 @@ export function HeroSection() {
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-2 gap-2.5 text-sm sm:gap-3">
             <div className="data-tile">
               <span className="data-k">Base</span>
               <span className="data-v">Teresina, PI</span>
