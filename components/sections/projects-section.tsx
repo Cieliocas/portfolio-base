@@ -1,7 +1,8 @@
 "use client"
 
+import { useEffect, useState } from 'react'
 import { useReveal } from '@/hooks/use-reveal'
-import { Brain, ServerCog, Image as ImageIcon, Cpu, Database, Monitor, ExternalLink } from 'lucide-react'
+import { Brain, ServerCog, Cpu, Database, Monitor, ExternalLink } from 'lucide-react'
 
 const projects = [
   {
@@ -19,6 +20,20 @@ const projects = [
     footer: 'CNPq · UFPI · NCAD/Cluster TechNE · Orientacao Prof. Andre Castelo Branco Soares',
     link: 'https://github.com/Cieliocas/mamografia-bi-rads-ia',
     linkLabel: 'Repositorio do projeto',
+    images: [
+      {
+        src: '/mammoAi.png',
+        alt: 'Interface principal do projeto Mamografia BI-RADS AI',
+      },
+      {
+        src: '/mammoanot1.png',
+        alt: 'Tela de anotacao semiautomatica em mamografia',
+      },
+      {
+        src: '/mammoanot2.png',
+        alt: 'Visualizacao de achados radiologicos com suporte de IA',
+      },
+    ],
   },
   {
     title: 'Cluster HPC TECHNE',
@@ -35,6 +50,20 @@ const projects = [
     footer: 'INFRA NCAD/UFPI · Documentacao e evolucao continua da plataforma',
     link: 'https://github.com/NCAD-UFPI',
     linkLabel: 'Organizacao NCAD/UFPI',
+    images: [
+      {
+        src: '/techne.png',
+        alt: 'Capa do Cluster TECHNE - UFPI',
+      },
+      {
+        src: '/cluster.jpeg',
+        alt: 'Infraestrutura fisica do cluster TECHNE',
+      },
+      {
+        src: '/techne-cluster.png',
+        alt: 'Repositorio do Cluster TECHNE no GitHub',
+      },
+    ],
   },
 ]
 
@@ -46,10 +75,23 @@ const projectMeta = [
 
 export function ProjectsSection() {
   const { ref, visible } = useReveal()
+  const [activeImage, setActiveImage] = useState<{ src: string; alt: string } | null>(null)
+
+  useEffect(() => {
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setActiveImage(null)
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [])
 
   return (
-    <section id="projetos" className="section-wrap">
-      <div ref={ref} className={`mx-auto max-w-6xl space-y-8 reveal ${visible ? 'visible' : ''}`}>
+    <>
+      <section id="projetos" className="section-wrap">
+        <div ref={ref} className={`mx-auto max-w-6xl space-y-8 reveal ${visible ? 'visible' : ''}`}>
         <div className="section-head">
           <p className="section-kicker">Projetos</p>
           <h2 className="section-title">Projetos em desenvolvimento e pesquisa aplicada</h2>
@@ -84,10 +126,21 @@ export function ProjectsSection() {
                 <h3 className="mb-2 font-heading text-base tracking-[0.04em] text-white sm:text-lg">{project.title}</h3>
                 <p className="mb-4 text-sm leading-relaxed text-white/70">{project.subtitle}</p>
 
-                <div className="project-image-placeholder mb-4">
-                  <ImageIcon className="h-4 w-4 text-cyber-cyan" />
-                  <span>Espaco pronto para imagem do projeto (voce anexa depois)</span>
-                </div>
+                  {project.images?.length ? (
+                    <div className="mb-4 grid gap-2.5 sm:grid-cols-2 lg:grid-cols-3">
+                    {project.images.map((image) => (
+                      <button
+                        key={image.src}
+                        type="button"
+                        onClick={() => setActiveImage({ src: image.src, alt: image.alt })}
+                        className="block overflow-hidden rounded-xl border border-cyber-cyan/30 bg-black/30 transition-transform hover:-translate-y-0.5"
+                        aria-label={`Abrir imagem: ${image.alt}`}
+                      >
+                        <img src={image.src} alt={image.alt} className="h-40 w-full object-cover sm:h-48" loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
 
                 <div className="mb-4 flex flex-wrap gap-2">
                   {project.stack.map((tech) => (
@@ -119,8 +172,33 @@ export function ProjectsSection() {
               </article>
             )
           })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {activeImage ? (
+        <div
+          className="fixed inset-0 z-[120] flex items-center justify-center bg-black/85 p-4"
+          onClick={() => setActiveImage(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Visualizacao ampliada da imagem"
+        >
+          <div
+            className="relative w-full max-w-5xl overflow-hidden rounded-2xl border border-white/20 bg-black/60 shadow-[0_20px_60px_rgba(0,0,0,0.55)]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setActiveImage(null)}
+              className="absolute right-3 top-3 z-10 rounded-full border border-white/35 bg-black/65 px-3 py-1 text-xs uppercase tracking-[0.12em] text-white/90"
+            >
+              Fechar
+            </button>
+            <img src={activeImage.src} alt={activeImage.alt} className="max-h-[82vh] w-full object-contain" />
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
