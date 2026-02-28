@@ -12,9 +12,6 @@ const highlights = [
 export function HeroSection() {
   return (
     <section className="hero-bg relative overflow-hidden pb-10 pt-8">
-      <div className="ambient-orb ambient-orb-cyan" />
-      <div className="ambient-orb ambient-orb-pink" />
-
       <div className="space-y-4">
         <div className="neon-sign-board">
           <span className="neon-sign-text">CODE. DEPLOY. REPEAT.</span>
