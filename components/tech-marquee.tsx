@@ -22,7 +22,7 @@ export function TechMarquee() {
   const repeated = [...techs, ...techs]
 
   return (
-    <section className="relative overflow-hidden border-y border-white/10 bg-[#090f24]/70 py-5">
+    <section className="marquee-shell relative overflow-hidden border-y border-white/10 py-5">
       <div className="marquee-track">
         {repeated.map((name, idx) => (
           <div key={`${name}-${idx}`} className="marquee-chip">
