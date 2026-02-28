@@ -326,6 +326,21 @@
   margin-top: 14px;
 }
 
+.notes-command {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8fe9ff !important;
+  text-shadow: 0 0 8px rgba(23, 219, 255, 0.3);
+}
+
+.notes-line {
+  font-family: var(--font-body), 'Space Grotesk', sans-serif;
+  color: rgba(245, 247, 255, 0.9) !important;
+  line-height: 1.85 !important;
+}
+
 [data-theme='light'] .glass-panel {
   border-color: rgba(10, 29, 65, 0.17);
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.86), rgba(247, 251, 255, 0.82));
@@ -360,6 +375,15 @@
 
 [data-theme='light'] .notes-body p {
   color: rgba(36, 40, 54, 0.9);
+}
+
+[data-theme='light'] .notes-command {
+  color: #005fbf !important;
+  text-shadow: 0 0 6px rgba(0, 119, 255, 0.22);
+}
+
+[data-theme='light'] .notes-line {
+  color: rgba(24, 28, 42, 0.92) !important;
 }
 
 .neon-tag,
