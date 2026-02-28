@@ -16,21 +16,9 @@ export const metadata: Metadata = {
   title: 'Francielio Castro | DevOps, Cloud & HPC',
   description: 'Portfolio de Francielio Castro com foco em DevOps, Cloud Engineering, HPC e Infraestrutura de IA.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: [{ url: '/favicon-f.png', type: 'image/png' }],
+    shortcut: '/favicon-f.png',
+    apple: '/favicon-f.png',
   },
 }
 

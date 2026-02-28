@@ -49,18 +49,26 @@ export function AboutSection() {
           <h2 className="section-title">Engenharia de infraestrutura com mentalidade de produto</h2>
         </div>
 
-        <div className="glass-panel space-y-5 p-5 sm:p-6 md:p-8">
-          <p className="text-sm leading-relaxed text-white/80 md:text-base">
-            Sou estudante de Ciencia da Computacao e pesquisador com atuacao em ambientes Linux,
-            virtualizacao e computacao de alto desempenho. Trabalho com setup e operacao de cluster
-            usando Proxmox e SLURM, com foco em estabilidade e uso eficiente de recursos.
-          </p>
-          <p className="text-sm leading-relaxed text-white/70 md:text-base">
-            Minha base de desenvolvimento para infraestrutura e Golang. Tambem atuo com containers,
-            fundamentos de CI/CD e monitoramento com Grafana + PostgreSQL para suporte de workloads
-            tecnicos e projetos academicos.
-          </p>
-        </div>
+        <article className="notes-card">
+          <div className="notes-toolbar">
+            <span className="dot red" />
+            <span className="dot yellow" />
+            <span className="dot green" />
+            <span className="notes-title">Notas · Sobre mim</span>
+          </div>
+          <div className="notes-body">
+            <p>
+              Sou estudante de Ciencia da Computacao e pesquisador com atuacao em ambientes Linux,
+              virtualizacao e computacao de alto desempenho. Trabalho com setup e operacao de cluster
+              usando Proxmox e SLURM, com foco em estabilidade e uso eficiente de recursos.
+            </p>
+            <p>
+              Minha base de desenvolvimento para infraestrutura e Golang. Tambem atuo com containers,
+              fundamentos de CI/CD e monitoramento com Grafana + PostgreSQL para suporte de workloads
+              tecnicos e projetos academicos.
+            </p>
+          </div>
+        </article>
 
         <article className="glass-panel p-5 sm:p-6">
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
