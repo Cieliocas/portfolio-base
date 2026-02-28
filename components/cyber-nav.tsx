@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import { Moon, SunMedium } from 'lucide-react'
 
 const navItems = [
   { label: 'sobre', href: '#sobre' },
@@ -10,60 +11,68 @@ const navItems = [
   { label: 'contato', href: '#contato' },
 ]
 
+type ThemeMode = 'dark' | 'light'
+
 export function CyberNav() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [theme, setTheme] = useState<ThemeMode>('dark')
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 18)
+    const saved = localStorage.getItem('site-theme') as ThemeMode | null
+    const preferredDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const nextTheme: ThemeMode = saved ?? (preferredDark ? 'dark' : 'light')
+    setTheme(nextTheme)
+    document.documentElement.setAttribute('data-theme', nextTheme)
+  }, [])
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const toggleTheme = () => {
+    const nextTheme: ThemeMode = theme === 'dark' ? 'light' : 'dark'
+    setTheme(nextTheme)
+    localStorage.setItem('site-theme', nextTheme)
+    document.documentElement.setAttribute('data-theme', nextTheme)
+  }
+
   return (
-    <nav
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled ? 'border-b border-white/10 bg-[#070b1a]/82 shadow-[0_0_30px_rgba(0,220,255,.08)] backdrop-blur-xl' : 'bg-transparent'
-      }`}
-    >
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-3.5 sm:px-5 md:px-8">
-        <a href="#" className="font-heading text-xs tracking-[0.2em] text-cyber-cyan sm:text-sm">
+    <nav className={`nav-dock transition-all duration-300 ${scrolled ? 'nav-scrolled' : ''}`}>
+      <div className="flex items-center justify-between gap-2 px-3 py-3">
+        <a href="#" className="font-heading text-[11px] tracking-[0.2em] text-cyber-cyan">
           FC//INFRA
         </a>
 
-        <div className="hidden items-center gap-6 md:flex">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-[11px] uppercase tracking-[0.18em] text-white/60 transition-colors hover:text-cyber-pink"
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="icon-btn"
+            aria-label={theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro'}
+          >
+            {theme === 'dark' ? <SunMedium className="h-3.5 w-3.5" /> : <Moon className="h-3.5 w-3.5" />}
+          </button>
 
-        <button
-          onClick={() => setMenuOpen((prev) => !prev)}
-          className="md:hidden rounded-full border border-white/20 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-white"
-          aria-label="Abrir menu"
-        >
-          {menuOpen ? 'Fechar' : 'Menu'}
-        </button>
+          <button
+            onClick={() => setMenuOpen((prev) => !prev)}
+            className="icon-btn px-2.5 text-[10px] uppercase tracking-[0.18em]"
+            aria-label="Abrir menu"
+          >
+            {menuOpen ? 'Fechar' : 'Menu'}
+          </button>
+        </div>
       </div>
 
-      <div
-        className={`overflow-hidden border-b border-white/10 bg-[#070b1a]/95 transition-all duration-300 md:hidden ${
-          menuOpen ? 'max-h-96' : 'max-h-0'
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl flex-col px-4 py-1.5 sm:px-5">
+      <div className={`overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-96' : 'max-h-0'}`}>
+        <div className="flex flex-col px-3 pb-2">
           {navItems.map((item) => (
             <a
               key={item.href}
               href={item.href}
               onClick={() => setMenuOpen(false)}
-              className="border-b border-white/10 py-3 text-[11px] uppercase tracking-[0.16em] text-white/70 transition-colors hover:text-cyber-cyan"
+              className="border-b border-white/10 py-3 text-[11px] uppercase tracking-[0.16em] text-white/74 transition-colors hover:text-cyber-cyan"
             >
               {item.label}
             </a>
