@@ -146,7 +146,7 @@
 }
 
 .mobile-main {
-  padding: 18px 18px 30px;
+  padding: 18px 18px 120px;
 }
 
 .page-enter { animation: pageEnter 0.7s ease both; }
@@ -180,8 +180,8 @@
 }
 
 [data-theme='light'] .neon-sign-text {
-  color: #7a0f46;
-  text-shadow: 0 0 6px rgba(255, 63, 143, 0.36);
+  color: #5c1135;
+  text-shadow: 0 0 7px rgba(255, 63, 143, 0.34);
 }
 
 .mac-terminal {
@@ -459,6 +459,27 @@
   color: rgba(11, 20, 48, 0.9) !important;
 }
 
+[data-theme='light'] .hero-bg h1 {
+  color: #071126 !important;
+}
+
+[data-theme='light'] .hero-bg p,
+[data-theme='light'] .hero-bg .data-v {
+  color: rgba(8, 18, 42, 0.88) !important;
+}
+
+[data-theme='light'] .hero-bg .data-k {
+  color: rgba(8, 18, 42, 0.6) !important;
+}
+
+[data-theme='light'] .hero-bg .terminal-content {
+  color: rgba(8, 18, 42, 0.92) !important;
+}
+
+[data-theme='light'] .hero-bg .terminal-content .out {
+  color: rgba(8, 18, 42, 0.68) !important;
+}
+
 [data-theme='light'] .device-shell [class*='border-white'] {
   border-color: rgba(10, 29, 65, 0.2) !important;
 }
@@ -498,7 +519,7 @@
 
 .footer-shell {
   background: rgba(6, 9, 21, 0.9);
-  margin: 10px 14px 2px;
+  margin: 10px 14px 76px;
   border-radius: 14px;
   overflow: hidden;
 }
