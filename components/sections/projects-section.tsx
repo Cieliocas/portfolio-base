@@ -1,7 +1,7 @@
 "use client"
 
 import { useReveal } from '@/hooks/use-reveal'
-import { Brain, ServerCog, Image as ImageIcon, Cpu, Database, Monitor } from 'lucide-react'
+import { Brain, ServerCog, Image as ImageIcon, Cpu, Database, Monitor, ExternalLink } from 'lucide-react'
 
 const projects = [
   {
@@ -17,6 +17,8 @@ const projects = [
       'Treinamento em cluster TechNE com GPUs NVIDIA L4 e jobs via Slurm.',
     ],
     footer: 'CNPq · UFPI · NCAD/Cluster TechNE · Orientacao Prof. Andre Castelo Branco Soares',
+    link: 'https://github.com/Cieliocas/mamografia-bi-rads-ia',
+    linkLabel: 'Repositorio do projeto',
   },
   {
     title: 'Cluster HPC TECHNE',
@@ -31,6 +33,8 @@ const projects = [
       'Operacao Linux com foco em observabilidade, fila de jobs e uso de recursos.',
     ],
     footer: 'INFRA NCAD/UFPI · Documentacao e evolucao continua da plataforma',
+    link: 'https://github.com/NCAD-UFPI',
+    linkLabel: 'Organizacao NCAD/UFPI',
   },
 ]
 
@@ -103,6 +107,15 @@ export function ProjectsSection() {
                 </ul>
 
                 <p className="text-xs leading-relaxed tracking-[0.04em] text-white/55">{project.footer}</p>
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-3 inline-flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-cyber-cyan hover:text-cyber-pink transition-colors"
+                >
+                  <ExternalLink className="h-3.5 w-3.5" />
+                  {project.linkLabel}
+                </a>
               </article>
             )
           })}
