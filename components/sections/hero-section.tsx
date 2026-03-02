@@ -3,16 +3,15 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Sparkles, Server, Cloud, Cpu } from 'lucide-react'
+import { useSiteSettings } from '@/hooks/use-site-settings'
+import { siteCopy } from '@/lib/site-copy'
 
-const highlights = [
-  { icon: Server, label: 'HPC Clusters' },
-  { icon: Cloud, label: 'DevOps & Cloud' },
-  { icon: Cpu, label: 'AI Infrastructure + Agents' },
-]
-
+const highlightIcons = [Server, Cloud, Cpu]
 const heroName = 'Franciélio Castro'
 
 export function HeroSection() {
+  const { language } = useSiteSettings()
+  const t = siteCopy[language].hero
   const [typedName, setTypedName] = useState('')
 
   useEffect(() => {
@@ -39,7 +38,7 @@ export function HeroSection() {
           <div className="space-y-4">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-[10px] uppercase tracking-[0.16em] text-cyber-cyan">
               <Sparkles className="h-3.5 w-3.5" />
-              Computer Science @ UFPI
+              {t.badge}
             </p>
 
             <div className="space-y-2.5">
@@ -47,21 +46,17 @@ export function HeroSection() {
                 {typedName}
                 <span className="typing-caret" aria-hidden="true">|</span>
               </h1>
-              <p className="text-sm leading-relaxed text-white/75">
-                Infraestrutura, Cloud e HPC com foco em confiabilidade, automacao e observabilidade.
-              </p>
-              <p className="text-[11px] uppercase tracking-[0.14em] text-white/55">
-                macOS workflow + terminal-first development
-              </p>
+              <p className="text-sm leading-relaxed text-white/75">{t.description}</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-white/55">{t.workflow}</p>
             </div>
 
             <div className="flex flex-wrap gap-2.5">
-              {highlights.map((item) => {
-                const Icon = item.icon
+              {t.highlights.map((label, index) => {
+                const Icon = highlightIcons[index]
                 return (
-                  <span key={item.label} className="neon-tag">
+                  <span key={label} className="neon-tag">
                     <Icon className="h-3.5 w-3.5" />
-                    {item.label}
+                    {label}
                   </span>
                 )
               })}
@@ -72,7 +67,7 @@ export function HeroSection() {
             <div className="profile-image-wrap">
               <Image
                 src="/profile-1758510032384.jpeg"
-                alt="Foto de Francielio Castro"
+                alt={t.photoAlt}
                 width={420}
                 height={420}
                 className="h-full w-full object-cover"
@@ -82,20 +77,20 @@ export function HeroSection() {
 
             <div className="grid grid-cols-2 gap-2.5 text-sm">
               <div className="data-tile">
-                <span className="data-k">Base</span>
+                <span className="data-k">{t.locationLabel}</span>
                 <span className="data-v">Teresina, PI</span>
               </div>
               <div className="data-tile">
-                <span className="data-k">Role</span>
+                <span className="data-k">{t.roleLabel}</span>
                 <span className="data-v">Infra & HPC</span>
               </div>
               <div className="data-tile">
-                <span className="data-k">Stack</span>
+                <span className="data-k">{t.stackLabel}</span>
                 <span className="data-v">Go + Linux</span>
               </div>
               <div className="data-tile">
-                <span className="data-k">Status</span>
-                <span className="data-v text-cyber-cyan">Open to work</span>
+                <span className="data-k">{t.statusLabel}</span>
+                <span className="data-v text-cyber-cyan">{t.statusValue}</span>
               </div>
             </div>
           </div>
@@ -110,9 +105,9 @@ export function HeroSection() {
           </div>
           <div className="terminal-content">
             <p><span className="prompt">$</span> neofetch --off</p>
-            <p className="out">OS: macOS · Shell: zsh · Focus: HPC/DevOps</p>
+            <p className="out">{t.terminalOutput1}</p>
             <p><span className="prompt">$</span> ssh gpunode01</p>
-            <p className="out">Connected to Cluster TECHNE (Slurm + NVIDIA L4)</p>
+            <p className="out">{t.terminalOutput2}</p>
           </div>
         </div>
       </div>

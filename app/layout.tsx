@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Orbitron, Space_Grotesk } from 'next/font/google'
+import { SiteSettingsProvider } from '@/hooks/use-site-settings'
 import './globals.css'
 
 const headingFont = Orbitron({
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${headingFont.variable} ${bodyFont.variable} font-sans antialiased`}>
-        {children}
+        <SiteSettingsProvider>{children}</SiteSettingsProvider>
       </body>
     </html>
   )
