@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { Sparkles, Server, Cloud, Cpu } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import { siteCopy } from '@/lib/site-copy'
+import { GpuHeroIllustration } from '@/components/gpu-hero-illustration'
 
 const highlightIcons = [Server, Cloud, Cpu]
 const heroName = 'Franciélio Castro'
@@ -175,6 +176,8 @@ export function HeroSection() {
             <GpuDie />
           </div>
         </div>
+
+        <GpuHeroIllustration />
 
         <div className="mac-terminal">
           <div className="mac-topbar">

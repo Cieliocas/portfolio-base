@@ -3,7 +3,6 @@
 import { useReveal } from '@/hooks/use-reveal'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import { siteCopy } from '@/lib/site-copy'
-import { GpuCardRow } from '@/components/gpu-illustrations'
 
 export function TechStackSection() {
   const { ref, visible } = useReveal()
@@ -18,15 +17,12 @@ export function TechStackSection() {
           <h2 className="section-title">{t.title}</h2>
         </div>
 
-        <div className="journey-hardware">
-          <div className="journey-hardware-head">
-            <span className="status-dot status-dot-ok" />
-            <span className="journey-hardware-label">
-              {language === 'pt' ? 'Hardware operado no cluster' : 'Hardware operated on cluster'}
-            </span>
-            <span className="journey-hardware-meta">CUDA 12.4 · NVLink · Driver 550.x</span>
-          </div>
-          <GpuCardRow />
+        <div className="journey-hardware-strip">
+          <span className="status-dot status-dot-ok" />
+          <span className="journey-hardware-label">
+            {language === 'pt' ? 'Hardware operado no cluster' : 'Hardware operated on cluster'}
+          </span>
+          <span className="journey-hardware-meta">CUDA 12.4 · NVLink 4.0 · Driver 550.x · 8× H100 SXM5</span>
         </div>
 
         <div className="grid gap-4 lg:grid-cols-3">
