@@ -1,116 +1,136 @@
 "use client"
 
-type FanProps = {
+/**
+ * GPU Hero Illustration — isometric 3-fan GPU card
+ *
+ * Architecture: everything on the shroud face is defined in LOCAL flat
+ * coordinates (W×D rectangle), then projected to screen space via a
+ * single SVG matrix transform. This ensures fans rotate correctly in the
+ * isometric plane and their holes sit exactly on the card face.
+ *
+ * Local space:  (0,0) front-left  →  screen (82,172)
+ *               (W,0) front-right →  screen (354,172)
+ *               (0,D) back-left   →  screen (172,112)
+ *
+ * Depth vector (0,D)→screen: (90,-60), ||v||=108
+ * c = 90/108 ≈ 0.8333   d = -60/108 ≈ -0.5556
+ * → transform="matrix(1, 0, 0.8333, -0.5556, 82, 172)"
+ */
+
+type FanLocalProps = {
   cx: number
   cy: number
+  r: number
   speed: number
-  blades?: number
 }
 
-function Fan({ cx, cy, speed, blades = 9 }: FanProps) {
-  const rx = 30
-  const ry = 19
-  const bladeOuter = 0.88 // keep blade tips inside the frame
-  const bladeAngles = Array.from({ length: blades }, (_, i) => (i / blades) * 360)
-  const clipId = `fanClip-${cx}-${cy}`
+function FanLocal({ cx, cy, r, speed }: FanLocalProps) {
+  const bladeCount = 9
 
   return (
-    <g className="gpu-fan">
-      <defs>
-        <clipPath id={clipId}>
-          <ellipse cx={cx} cy={cy} rx={rx - 1.5} ry={ry - 1.5} />
-        </clipPath>
-      </defs>
+    <g>
+      {/* Deep recess — dark hole behind the blades */}
+      <circle cx={cx} cy={cy} r={r + 3} fill="#020710" />
 
-      {/* Fan recess (deep shadow) */}
-      <ellipse cx={cx} cy={cy} rx={rx + 4} ry={ry + 3} className="gpu-fan-well" />
+      {/* Glow backdrop (pulsing) */}
+      <circle cx={cx} cy={cy} r={r} fill="url(#gpuFanGlow)">
+        <animate
+          attributeName="opacity"
+          values="0.28;0.65;0.28"
+          dur={`${(speed * 2.1).toFixed(1)}s`}
+          repeatCount="indefinite"
+        />
+      </circle>
 
-      {/* Pulsing glow backdrop */}
-      <ellipse cx={cx} cy={cy} rx={rx + 2} ry={ry + 1} className="gpu-fan-glow" />
-
-      {/* Clipped interior: blades + hub */}
-      <g clipPath={`url(#${clipId})`}>
-        {/* Spinning blades group — SMIL rotation */}
-        <g className="gpu-fan-blades">
-          {bladeAngles.map((a, i) => {
-            const r = (a * Math.PI) / 180
-            const rCurve = ((a - 32) * Math.PI) / 180
-            const rInner = ((a - 10) * Math.PI) / 180
-            const tipX = cx + rx * bladeOuter * Math.cos(r)
-            const tipY = cy + ry * bladeOuter * Math.sin(r)
-            const cpX = cx + rx * 0.58 * Math.cos(rCurve)
-            const cpY = cy + ry * 0.58 * Math.sin(rCurve)
-            const innerX = cx + rx * 0.18 * Math.cos(rInner)
-            const innerY = cy + ry * 0.18 * Math.sin(rInner)
-            return (
-              <path
-                key={`blade-${i}`}
-                d={`M ${innerX} ${innerY} Q ${cpX} ${cpY} ${tipX} ${tipY} L ${cx} ${cy} Z`}
-                className="gpu-fan-blade"
-              />
-            )
-          })}
-          <animateTransform
-            attributeName="transform"
-            type="rotate"
-            from={`0 ${cx} ${cy}`}
-            to={`360 ${cx} ${cy}`}
-            dur={`${speed}s`}
-            repeatCount="indefinite"
-          />
-        </g>
+      {/* ── Spinning blades ─────────────────────────────
+          Tips end at (r-1) — always inside the ring (r).
+          In local flat space → projected correctly by parent matrix.
+          SMIL animateTransform rotates around LOCAL (cx,cy). */}
+      <g>
+        {Array.from({ length: bladeCount }).map((_, i) => {
+          const a = (i / bladeCount) * Math.PI * 2
+          const aCtrl = a - 0.5
+          // toFixed(3) ensures identical output on SSR and client
+          const tipX = (cx + (r - 1.5) * Math.cos(a)).toFixed(3)
+          const tipY = (cy + (r - 1.5) * Math.sin(a)).toFixed(3)
+          const cpX  = (cx + r * 0.56 * Math.cos(aCtrl)).toFixed(3)
+          const cpY  = (cy + r * 0.56 * Math.sin(aCtrl)).toFixed(3)
+          return (
+            <path
+              key={i}
+              d={`M ${cx} ${cy} Q ${cpX} ${cpY} ${tipX} ${tipY} Z`}
+              fill="rgba(188, 218, 255, 0.74)"
+              stroke="rgba(230, 245, 255, 0.18)"
+              strokeWidth="0.4"
+            />
+          )
+        })}
+        <animateTransform
+          attributeName="transform"
+          type="rotate"
+          from={`0 ${cx} ${cy}`}
+          to={`360 ${cx} ${cy}`}
+          dur={`${speed}s`}
+          repeatCount="indefinite"
+        />
       </g>
 
-      {/* Fan frame ring (on top of blades) */}
-      <ellipse cx={cx} cy={cy} rx={rx} ry={ry} className="gpu-fan-frame" />
+      {/* Frame ring — rendered on top of blades */}
+      <circle
+        cx={cx} cy={cy} r={r}
+        fill="none"
+        stroke="rgba(148, 192, 250, 0.75)"
+        strokeWidth="1.8"
+      />
 
-      {/* Outer rim struts (fixed, on top) */}
-      {[22, 112].map((a) => {
-        const r = (a * Math.PI) / 180
+      {/* Strut spokes (fixed) */}
+      {[20, 110].map((deg, i) => {
+        const rad = (deg * Math.PI) / 180
         return (
           <line
-            key={`strut-${a}`}
-            x1={cx + rx * Math.cos(r)}
-            y1={cy + ry * Math.sin(r)}
-            x2={cx - rx * Math.cos(r)}
-            y2={cy - ry * Math.sin(r)}
-            className="gpu-fan-strut"
+            key={i}
+            x1={cx + r * Math.cos(rad)} y1={cy + r * Math.sin(rad)}
+            x2={cx - r * Math.cos(rad)} y2={cy - r * Math.sin(rad)}
+            stroke="rgba(90, 130, 200, 0.55)"
+            strokeWidth="1"
           />
         )
       })}
 
-      {/* Fan hub */}
-      <ellipse cx={cx} cy={cy} rx={6} ry={4.2} className="gpu-fan-hub" />
-      <ellipse cx={cx} cy={cy} rx={3} ry={2} className="gpu-fan-hub-inner" />
-      {/* Blinking center LED */}
-      <circle cx={cx} cy={cy} r={1.2} className="gpu-fan-led" />
+      {/* Hub */}
+      <circle cx={cx} cy={cy} r={5.5}
+        fill="#0d182e" stroke="rgba(34, 211, 238, 0.9)" strokeWidth="1" />
+
+      {/* Center LED */}
+      <circle cx={cx} cy={cy} r={1.6} fill="rgba(34, 211, 238, 0.95)">
+        <animate
+          attributeName="opacity"
+          values="0.45;1;0.45"
+          dur={`${(speed * 1.4).toFixed(1)}s`}
+          repeatCount="indefinite"
+        />
+      </circle>
     </g>
   )
 }
 
 export function GpuHeroIllustration() {
-  // Fan centers along the top parallelogram
-  const fans = [
-    { cx: 142, cy: 146, speed: 1.4 },
-    { cx: 222, cy: 146, speed: 1.1 },
-    { cx: 302, cy: 146, speed: 1.6 },
-  ]
+  // ── Local card dimensions ──────────────────────────────────────────
+  const W = 272  // card length  (82→354 on front edge)
+  const D = 108  // card depth   (172→112 in screen y)
+  const FAN_R = 35 // fan radius — fans slightly gap at each side
 
-  // PCIe gold fingers: 24 contacts
-  const pcieContacts = Array.from({ length: 24 }, (_, i) => 158 + i * 7.5)
-
-  // Bracket port cutouts
-  const ports = [
-    { y: 187, h: 6, label: 'DP' },
-    { y: 197, h: 6, label: 'DP' },
-    { y: 207, h: 6, label: 'DP' },
-    { y: 218, h: 12, label: 'HDMI' },
+  // Fan centres in local flat space
+  const fanDefs: { cx: number; cy: number; speed: number }[] = [
+    { cx: W * 0.25, cy: D * 0.5, speed: 1.45 },
+    { cx: W * 0.5,  cy: D * 0.5, speed: 1.05 },
+    { cx: W * 0.75, cy: D * 0.5, speed: 1.65 },
   ]
 
   return (
     <div className="gpu-hero-wrap">
       <svg
-        viewBox="0 0 500 340"
+        viewBox="0 0 500 325"
         xmlns="http://www.w3.org/2000/svg"
         className="gpu-hero-svg"
         role="img"
@@ -118,191 +138,178 @@ export function GpuHeroIllustration() {
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>
-          {/* Ambient halo behind the card */}
+          {/* Ambient halo */}
           <radialGradient id="gpuAmbient" cx="50%" cy="55%" r="55%">
-            <stop offset="0%" stopColor="rgba(34, 211, 238, 0.28)" />
-            <stop offset="55%" stopColor="rgba(34, 211, 238, 0.05)" />
-            <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+            <stop offset="0%"   stopColor="rgba(34,211,238,0.26)" />
+            <stop offset="55%"  stopColor="rgba(34,211,238,0.05)" />
+            <stop offset="100%" stopColor="rgba(34,211,238,0)" />
           </radialGradient>
 
-          {/* Shroud — top face of the card */}
+          {/* Shroud top face */}
           <linearGradient id="gpuShroud" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2541a8" />
-            <stop offset="55%" stopColor="#1b2f7d" />
-            <stop offset="100%" stopColor="#0d1949" />
+            <stop offset="0%"   stopColor="#304fcc" />
+            <stop offset="50%"  stopColor="#1d3898" />
+            <stop offset="100%" stopColor="#0e1f60" />
           </linearGradient>
 
-          {/* Side face (darker) */}
+          {/* Right side face */}
           <linearGradient id="gpuSide" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#1b2f7d" />
-            <stop offset="100%" stopColor="#080f30" />
+            <stop offset="0%"   stopColor="#1c328a" />
+            <stop offset="100%" stopColor="#07102e" />
           </linearGradient>
 
-          {/* Front strip */}
+          {/* Front edge face */}
           <linearGradient id="gpuFront" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#162557" />
-            <stop offset="100%" stopColor="#070d28" />
+            <stop offset="0%"   stopColor="#162268" />
+            <stop offset="100%" stopColor="#060c28" />
           </linearGradient>
 
-          {/* PCIe bracket */}
+          {/* Bracket */}
           <linearGradient id="gpuBracket" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#8893a8" />
-            <stop offset="100%" stopColor="#323c55" />
+            <stop offset="0%"   stopColor="#8a94ac" />
+            <stop offset="100%" stopColor="#333e58" />
+          </linearGradient>
+
+          {/* PCIe gold */}
+          <linearGradient id="gpuGold" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"   stopColor="#fde88a" />
+            <stop offset="50%"  stopColor="#f59e0b" />
+            <stop offset="100%" stopColor="#92410e" />
           </linearGradient>
 
           {/* Fan glow */}
-          <radialGradient id="gpuFanGlow" cx="50%" cy="50%" r="60%">
-            <stop offset="0%" stopColor="rgba(34, 211, 238, 0.9)" />
-            <stop offset="55%" stopColor="rgba(34, 211, 238, 0.25)" />
-            <stop offset="100%" stopColor="rgba(34, 211, 238, 0)" />
+          <radialGradient id="gpuFanGlow" cx="50%" cy="50%" r="55%">
+            <stop offset="0%"   stopColor="rgba(34,211,238,0.88)" />
+            <stop offset="60%"  stopColor="rgba(34,211,238,0.22)" />
+            <stop offset="100%" stopColor="rgba(34,211,238,0)" />
           </radialGradient>
-
-          {/* Fan blades */}
-          <linearGradient id="gpuFanBlade" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="rgba(222, 236, 255, 0.92)" />
-            <stop offset="100%" stopColor="rgba(120, 160, 220, 0.7)" />
-          </linearGradient>
-
-          {/* Gold PCIe finger */}
-          <linearGradient id="gpuGold" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#fde68a" />
-            <stop offset="50%" stopColor="#fbbf24" />
-            <stop offset="100%" stopColor="#b45309" />
-          </linearGradient>
         </defs>
 
-        {/* ─── Ambient glow behind card ─── */}
-        <ellipse cx="260" cy="210" rx="250" ry="100" fill="url(#gpuAmbient)">
-          <animate
-            attributeName="opacity"
-            values="0.6;1;0.6"
-            dur="4s"
-            repeatCount="indefinite"
-          />
+        {/* ── Ambient glow backdrop ── */}
+        <ellipse cx="260" cy="202" rx="238" ry="92" fill="url(#gpuAmbient)">
+          <animate attributeName="opacity" values="0.65;1;0.65" dur="4s" repeatCount="indefinite" />
         </ellipse>
 
-        {/* ─── Back spine (top-back ridge) ─── */}
+        {/* ── Back spine ridge ── */}
         <polygon
-          points="172,102 436,102 436,112 172,112"
-          fill="#0a1332"
-          stroke="rgba(34, 211, 238, 0.22)"
-          strokeWidth="0.6"
+          points="172,100 436,100 436,112 172,112"
+          fill="#080e2a"
+          stroke="rgba(34,211,238,0.18)"
+          strokeWidth="0.5"
         />
 
-        {/* ─── Top face / Shroud parallelogram ─── */}
-        <polygon
-          points="82,172 354,172 436,112 172,112"
-          fill="url(#gpuShroud)"
-          stroke="rgba(140, 180, 255, 0.55)"
-          strokeWidth="1.2"
-          strokeLinejoin="round"
-        />
-
-        {/* Shroud ribbed panels between fans */}
-        {[103, 183, 263, 343].map((x, i) => (
-          <line
-            key={`rib-${i}`}
-            x1={x}
-            y1={172}
-            x2={x + 55}
-            y2={112}
-            className="gpu-shroud-rib"
+        {/* ═══════════════════════════════════════════════════════════
+            SHROUD FACE + FANS — local flat coordinates
+            Isometric matrix: new_x = x + 0.8333*y + 82
+                              new_y = 0*x - 0.5556*y + 172
+            ═══════════════════════════════════════════════════════════ */}
+        <g transform="matrix(1, 0, 0.8333, -0.5556, 82, 172)">
+          {/* Card face background */}
+          <rect
+            x={0} y={0} width={W} height={D}
+            fill="url(#gpuShroud)"
+            stroke="rgba(150,192,255,0.62)"
+            strokeWidth="1.3"
+            strokeLinejoin="round"
           />
-        ))}
 
-        {/* Shroud brand — placed on back spine above fans */}
-        <text x="290" y="108" textAnchor="middle" className="gpu-shroud-brand">
-          GeForce
-        </text>
+          {/* Separator ribs between fan bays */}
+          {[W * 0.25 + FAN_R + 6, W * 0.5 + FAN_R + 6].map((x, i) => (
+            <line
+              key={i}
+              x1={x} y1={3} x2={x} y2={D - 3}
+              stroke="rgba(200,222,255,0.08)"
+              strokeWidth="0.7"
+            />
+          ))}
 
-        {/* ─── Right side face ─── */}
-        <polygon
-          points="354,172 436,112 436,152 354,212"
-          fill="url(#gpuSide)"
-          stroke="rgba(34, 211, 238, 0.32)"
-          strokeWidth="0.7"
-        />
+          {/* Brand label on spine */}
+          <text
+            x={W / 2} y={8}
+            textAnchor="middle"
+            fontSize="7"
+            letterSpacing="3"
+            fill="rgba(215,232,255,0.42)"
+            fontFamily="system-ui, sans-serif"
+          >
+            GEFORCE RTX
+          </text>
 
-        {/* ─── Front face (thin strip showing depth) ─── */}
+          {/* ── 3 Fans in local flat space ── */}
+          {fanDefs.map((f, i) => (
+            <FanLocal key={i} cx={f.cx} cy={f.cy} r={FAN_R} speed={f.speed} />
+          ))}
+        </g>
+
+        {/* ── Front edge (card thickness) ── */}
         <polygon
           points="82,172 354,172 354,212 82,212"
           fill="url(#gpuFront)"
-          stroke="rgba(34, 211, 238, 0.3)"
+          stroke="rgba(34,211,238,0.28)"
           strokeWidth="0.7"
         />
 
-        {/* LED strip along the front edge */}
-        <rect x="88" y="187" width="260" height="2.2" className="gpu-led-strip" />
-        {[100, 135, 170, 205, 240, 275, 310, 340].map((x, i) => (
+        {/* ── Right side face ── */}
+        <polygon
+          points="354,172 436,112 436,152 354,212"
+          fill="url(#gpuSide)"
+          stroke="rgba(34,211,238,0.28)"
+          strokeWidth="0.7"
+        />
+
+        {/* ── LED strip along front edge ── */}
+        <rect x="88" y="186" width="260" height="2" className="gpu-led-strip" />
+        {[102, 138, 174, 210, 246, 282, 318, 348].map((x, i) => (
           <circle
-            key={`led-${i}`}
-            cx={x}
-            cy="188.1"
-            r="1.4"
+            key={i} cx={x} cy="187" r="1.5"
             className="gpu-led-dot"
             style={{ animationDelay: `${(i * 0.18).toFixed(2)}s` }}
           />
         ))}
 
-        {/* ─── Fans (3x) ─── */}
-        {fans.map((f, i) => (
-          <Fan key={`fan-${i}`} cx={f.cx} cy={f.cy} speed={f.speed} />
-        ))}
-
-        {/* ─── PCIe bracket (left) ─── */}
+        {/* ── PCIe bracket (left) ── */}
         <polygon
-          points="46,170 82,170 82,260 46,260"
+          points="47,168 82,168 82,262 47,262"
           fill="url(#gpuBracket)"
-          stroke="rgba(34, 211, 238, 0.22)"
+          stroke="rgba(34,211,238,0.2)"
           strokeWidth="0.6"
         />
-        {ports.map((p, i) => (
-          <g key={`port-${i}`}>
-            <rect
-              x={54}
-              y={p.y}
-              width={22}
-              height={p.h}
-              rx={1.4}
-              className="gpu-bracket-port"
-            />
-          </g>
+        {[
+          { y: 185, h: 6  },
+          { y: 195, h: 6  },
+          { y: 205, h: 6  },
+          { y: 216, h: 12 },
+        ].map((p, i) => (
+          <rect key={i} x={55} y={p.y} width={21} height={p.h} rx={1.5}
+            className="gpu-bracket-port" />
         ))}
-        {/* Bracket screw holes */}
-        <circle cx="64" cy="175" r="1.8" className="gpu-bracket-screw" />
-        <circle cx="64" cy="255" r="1.8" className="gpu-bracket-screw" />
+        <circle cx={64} cy={173} r={2} className="gpu-bracket-screw" />
+        <circle cx={64} cy={257} r={2} className="gpu-bracket-screw" />
 
-        {/* ─── PCIe gold connector (bottom) ─── */}
-        <g className="gpu-pcie-group">
-          <rect x="152" y="225" width="184" height="14" className="gpu-pcie-base" />
-          <rect x="152" y="225" width="184" height="14" fill="url(#gpuGold)" />
-          {pcieContacts.map((x, i) => (
-            <rect
-              key={`pcie-${i}`}
-              x={x}
-              y={228}
-              width={4.5}
-              height={9}
-              className="gpu-pcie-pin"
-              style={{ animationDelay: `${(i * 0.05).toFixed(2)}s` }}
-            />
-          ))}
-          {/* PCIe notch */}
-          <rect x="236" y="225" width="6" height="5" className="gpu-pcie-notch" />
-        </g>
+        {/* ── PCIe gold fingers ── */}
+        <rect x={152} y={222} width={182} height={15} fill="url(#gpuGold)" rx={1} />
+        {Array.from({ length: 24 }).map((_, i) => (
+          <rect
+            key={i}
+            x={154 + i * 7.5} y={225}
+            width={5.5} height={10}
+            className="gpu-pcie-pin"
+            style={{ animationDelay: `${(i * 0.045).toFixed(2)}s` }}
+          />
+        ))}
+        {/* PCIe alignment notch */}
+        <rect x={236} y={222} width={7} height={6} className="gpu-pcie-notch" />
 
-        {/* ─── Text labels below ─── */}
-        <text x="258" y="286" textAnchor="middle" className="gpu-hero-brand">
-          NVIDIA
-        </text>
-        <text x="258" y="302" textAnchor="middle" className="gpu-hero-spec">
-          RTX · 24GB GDDR6X · PCIe 5.0 · CUDA 12.4
+        {/* ── Branding ── */}
+        <text x="265" y="280" textAnchor="middle" className="gpu-hero-brand">NVIDIA</text>
+        <text x="265" y="296" textAnchor="middle" className="gpu-hero-spec">
+          RTX · 24 GB GDDR6X · PCIe 5.0 · CUDA 12.4
         </text>
 
-        {/* Power indicator LED below card */}
-        <g transform="translate(430, 240)">
-          <circle r="3" className="gpu-status-led" />
-          <text x="8" y="3" className="gpu-status-label">PWR</text>
+        {/* ── Power LED ── */}
+        <g transform="translate(436,232)">
+          <circle r={2.8} className="gpu-status-led" />
+          <text x="7" y="3" className="gpu-status-label">PWR</text>
         </g>
       </svg>
     </div>
