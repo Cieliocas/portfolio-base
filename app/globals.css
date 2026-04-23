@@ -1289,192 +1289,195 @@
 }
 
 /* ================================
-   GPU HERO ILLUSTRATION
+   GPU HERO ILLUSTRATION — Isometric
 ================================ */
 
 .gpu-hero-wrap {
   width: 100%;
-  overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid rgba(34, 211, 238, 0.14);
-  background: #05101e;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  max-width: 560px;
+  margin: 8px auto 0;
+  padding: 4px;
+  display: block;
+  position: relative;
 }
 
-.gpu-hero-wrap:hover {
-  border-color: rgba(34, 211, 238, 0.38);
-  box-shadow: 0 0 40px rgba(34, 211, 238, 0.08) inset;
+.gpu-hero-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+  filter: drop-shadow(0 20px 40px rgba(8, 12, 30, 0.55));
 }
 
-.gpu-hero-svg { width: 100%; height: auto; display: block; }
-
-.gpu-hero-pcb { fill: #060e1c; }
-
-.gpu-hero-grid {
-  stroke: rgba(34, 211, 238, 0.04);
-  stroke-width: 0.5;
+/* Subtle ribbed lines on the shroud top */
+.gpu-shroud-rib {
+  stroke: rgba(200, 220, 255, 0.08);
+  stroke-width: 0.6;
 }
 
-.gpu-hero-die {
-  fill: #030810;
-  stroke: rgba(34, 211, 238, 0.7);
-  stroke-width: 0.9;
-  transition: stroke 0.4s ease;
-}
-
-.gpu-hero-wrap:hover .gpu-hero-die { stroke: rgba(34, 211, 238, 0.95); }
-
-.gpu-hero-die-corner {
-  fill: none;
-  stroke: rgba(34, 211, 238, 0.55);
-  stroke-width: 0.8;
-}
-
-.gpu-hero-die-label {
-  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 6.5px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  fill: rgba(34, 211, 238, 0.5);
-}
-
-/* SM cells */
-.gpu-hero-sm {
-  fill: var(--compute-green);
-  fill-opacity: 0.32;
-  animation: gpuPulse 3.4s ease-in-out infinite;
-  transition: fill-opacity 0.4s ease;
-}
-
-.gpu-hero-sm-tensor {
-  fill: var(--cyber-cyan);
-  fill-opacity: 0.48;
-  animation: gpuPulse 2.6s ease-in-out infinite;
-  transition: fill-opacity 0.4s ease;
-}
-
-.gpu-hero-sm-rt {
-  fill: var(--cyber-pink);
-  fill-opacity: 0.38;
-  animation: gpuPulse 3.8s ease-in-out infinite;
-  transition: fill-opacity 0.4s ease;
-}
-
-.gpu-hero-wrap:hover .gpu-hero-sm         { fill-opacity: 0.82; }
-.gpu-hero-wrap:hover .gpu-hero-sm-tensor  { fill-opacity: 0.96; }
-.gpu-hero-wrap:hover .gpu-hero-sm-rt      { fill-opacity: 0.88; }
-
-/* HBM stacks */
-.gpu-hero-hbm {
-  fill: #0b1628;
-  stroke: rgba(0, 255, 163, 0.52);
-  stroke-width: 0.7;
-}
-
-.gpu-hero-hbm-line {
-  stroke: rgba(0, 255, 163, 0.32);
-  stroke-width: 0.5;
-}
-
-.gpu-hero-hbm-tag {
-  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  fill: rgba(0, 255, 163, 0.5);
-}
-
-/* NVLink pads */
-.gpu-hero-nvlink {
-  fill: rgba(251, 191, 36, 0.7);
-  animation: gpuPulse 2.0s ease-in-out infinite;
-}
-
-/* Data flow traces */
-@keyframes traceFlowRight {
-  from { stroke-dashoffset: 26; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes traceFlowLeft {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: 26; }
-}
-
-@keyframes traceFlowDown {
-  from { stroke-dashoffset: 0; }
-  to   { stroke-dashoffset: 26; }
-}
-
-.gpu-hero-trace-h {
-  stroke-width: 0.8;
-  stroke-dasharray: 7 5;
-}
-
-.gpu-hero-trace-left {
-  stroke: rgba(0, 255, 163, 0.55);
-  animation: traceFlowRight 1.6s linear infinite;
-}
-
-.gpu-hero-trace-right {
-  stroke: rgba(34, 211, 238, 0.55);
-  animation: traceFlowLeft 1.6s linear infinite;
-}
-
-.gpu-hero-trace-v {
-  stroke: rgba(34, 211, 238, 0.38);
-  stroke-width: 0.7;
-  stroke-dasharray: 5 4;
-  animation: traceFlowDown 1.3s linear infinite;
-}
-
-/* Connectors */
-.gpu-hero-connector {
-  fill: #0c1828;
-  stroke: rgba(251, 191, 36, 0.35);
-  stroke-width: 0.5;
-}
-
-.gpu-hero-connector-pin { fill: rgba(251, 191, 36, 0.78); }
-
-/* Thermal vias */
-.gpu-hero-via {
-  fill: none;
-  stroke: rgba(34, 211, 238, 0.2);
-  stroke-width: 0.8;
-}
-
-.gpu-hero-via-center { fill: rgba(34, 211, 238, 0.18); }
-
-/* Branding text */
-.gpu-hero-brand {
+/* Shroud text logo */
+.gpu-shroud-brand {
   font-family: var(--font-heading), sans-serif;
   font-size: 8px;
-  letter-spacing: 0.55em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
-  fill: rgba(245, 247, 255, 0.32);
+  fill: rgba(220, 232, 255, 0.55);
+}
+
+/* ─── Fans ─── */
+.gpu-fan-well  { fill: #050a1e; }
+
+.gpu-fan-glow {
+  fill: url(#gpuFanGlow);
+  opacity: 0.55;
+  animation: fanGlowPulse 3.2s ease-in-out infinite;
+}
+
+.gpu-fan:nth-of-type(2) .gpu-fan-glow { animation-duration: 2.6s; animation-delay: 0.3s; }
+.gpu-fan:nth-of-type(3) .gpu-fan-glow { animation-duration: 3.6s; animation-delay: 0.9s; }
+
+@keyframes fanGlowPulse {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 0.85; }
+}
+
+.gpu-fan-frame {
+  fill: none;
+  stroke: rgba(150, 190, 240, 0.5);
+  stroke-width: 1.2;
+}
+
+.gpu-fan-strut {
+  stroke: rgba(80, 110, 170, 0.5);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+}
+
+/* Blade rotation handled via SMIL <animateTransform> in the SVG */
+
+.gpu-fan-blade {
+  fill: url(#gpuFanBlade);
+  stroke: rgba(220, 240, 255, 0.35);
+  stroke-width: 0.4;
+  stroke-linejoin: round;
+}
+
+.gpu-fan-hub {
+  fill: #111a36;
+  stroke: rgba(34, 211, 238, 0.8);
+  stroke-width: 0.9;
+}
+
+.gpu-fan-hub-inner {
+  fill: #1e2b55;
+  stroke: rgba(34, 211, 238, 0.45);
+  stroke-width: 0.5;
+}
+
+.gpu-fan-led {
+  fill: var(--cyber-cyan);
+  filter: drop-shadow(0 0 2px rgba(34, 211, 238, 0.9));
+  animation: fanLedBlink 1.8s ease-in-out infinite;
+}
+
+@keyframes fanLedBlink {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* ─── LED strip ─── */
+.gpu-led-strip {
+  fill: rgba(34, 211, 238, 0.14);
+}
+
+.gpu-led-dot {
+  fill: var(--cyber-cyan);
+  filter: drop-shadow(0 0 3px rgba(34, 211, 238, 0.85));
+  animation: ledTrace 2.1s ease-in-out infinite;
+}
+
+@keyframes ledTrace {
+  0%, 100% { opacity: 0.35; }
+  50%      { opacity: 1; }
+}
+
+/* ─── Bracket ─── */
+.gpu-bracket-port {
+  fill: #020617;
+  stroke: rgba(34, 211, 238, 0.3);
+  stroke-width: 0.4;
+}
+
+.gpu-bracket-screw {
+  fill: #4b5469;
+  stroke: rgba(0, 0, 0, 0.6);
+  stroke-width: 0.4;
+}
+
+/* ─── PCIe connector ─── */
+.gpu-pcie-base { fill: #0b1430; }
+
+.gpu-pcie-pin {
+  fill: rgba(12, 10, 2, 0.55);
+  animation: pciePulse 2.6s ease-in-out infinite;
+}
+
+@keyframes pciePulse {
+  0%, 90%, 100% { fill: rgba(12, 10, 2, 0.55); }
+  45%, 55%       { fill: rgba(12, 10, 2, 0.2); }
+}
+
+.gpu-pcie-notch {
+  fill: #040a1e;
+}
+
+/* ─── Labels ─── */
+.gpu-hero-brand {
+  font-family: var(--font-heading), sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  fill: rgba(245, 247, 255, 0.55);
 }
 
 .gpu-hero-spec {
   font-family: ui-monospace, 'SF Mono', Menlo, monospace;
-  font-size: 5.5px;
-  letter-spacing: 0.18em;
+  font-size: 7.5px;
+  letter-spacing: 0.2em;
   fill: rgba(245, 247, 255, 0.42);
 }
 
-/* Light theme overrides */
-[data-theme='light'] .gpu-hero-wrap {
-  border-color: rgba(2, 132, 199, 0.2);
-  background: #d8e8f8;
+/* Power status LED below card */
+.gpu-status-led {
+  fill: var(--compute-green);
+  filter: drop-shadow(0 0 3px rgba(0, 255, 163, 0.8));
+  animation: fanLedBlink 1.6s ease-in-out infinite;
 }
 
-[data-theme='light'] .gpu-hero-pcb  { fill: #ccddf2; }
-[data-theme='light'] .gpu-hero-grid { stroke: rgba(2, 132, 199, 0.06); }
-[data-theme='light'] .gpu-hero-die  { fill: #050d22; }
-[data-theme='light'] .gpu-hero-hbm  { fill: #c0d2e8; stroke: rgba(0, 153, 94, 0.5); }
-[data-theme='light'] .gpu-hero-brand { fill: rgba(11, 20, 48, 0.35); }
-[data-theme='light'] .gpu-hero-spec  { fill: rgba(11, 20, 48, 0.45); }
-[data-theme='light'] .gpu-hero-die-label { fill: rgba(2, 132, 199, 0.65); }
+.gpu-status-label {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 6px;
+  letter-spacing: 0.15em;
+  fill: rgba(0, 255, 163, 0.7);
+  text-transform: uppercase;
+}
+
+/* Light theme */
+[data-theme='light'] .gpu-hero-brand { fill: rgba(11, 20, 48, 0.6); }
+[data-theme='light'] .gpu-hero-spec  { fill: rgba(11, 20, 48, 0.5); }
+[data-theme='light'] .gpu-shroud-brand { fill: rgba(220, 232, 255, 0.9); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .gpu-fan-blades,
+  .gpu-fan-glow,
+  .gpu-fan-led,
+  .gpu-led-dot,
+  .gpu-status-led,
+  .gpu-pcie-pin {
+    animation: none;
+  }
+}
 
 /* ================================
    GPU ILLUSTRATION CARDS
