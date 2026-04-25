@@ -15,42 +15,44 @@ export function AboutSection() {
 
   return (
     <section id="sobre" className="section-wrap">
-      <div ref={ref} className={`mx-auto max-w-6xl space-y-8 reveal ${visible ? 'visible' : ''}`}>
+      <div ref={ref} className={`mx-auto max-w-6xl space-y-6 reveal ${visible ? 'visible' : ''}`}>
         <div className="section-head">
           <p className="section-kicker">{t.kicker}</p>
           <h2 className="section-title">{t.title}</h2>
         </div>
 
-        <article className="notes-card">
-          <div className="notes-toolbar">
-            <span className="dot red" />
-            <span className="dot yellow" />
-            <span className="dot green" />
-            <span className="notes-title">{t.notesTitle}</span>
-          </div>
-          <div className="notes-body">
-            {t.notes.map((note) => (
-              <p key={note}>{note}</p>
-            ))}
-          </div>
-        </article>
+        <div className="grid gap-4 md:grid-cols-2">
+          <article className="notes-card h-full">
+            <div className="notes-toolbar">
+              <span className="dot red" />
+              <span className="dot yellow" />
+              <span className="dot green" />
+              <span className="notes-title">{t.notesTitle}</span>
+            </div>
+            <div className="notes-body">
+              {t.notes.map((note) => (
+                <p key={note}>{note}</p>
+              ))}
+            </div>
+          </article>
 
-        <article className="glass-panel p-5 sm:p-6">
-          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
-            <Laptop className="h-3.5 w-3.5 text-cyber-cyan" />
-            <span className="text-[10px] uppercase tracking-[0.16em] text-white/75">{t.macBadge}</span>
-          </div>
-          <p className="mb-4 text-sm leading-relaxed text-white/72">{t.macText}</p>
-          <div className="flex flex-wrap gap-2.5">
-            {macosStack.map((tool) => (
-              <span key={tool} className="neon-tag-soft">
-                {tool}
-              </span>
-            ))}
-          </div>
-        </article>
+          <article className="glass-panel p-5 h-full">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5">
+              <Laptop className="h-3.5 w-3.5 text-cyber-cyan" />
+              <span className="text-[10px] uppercase tracking-[0.16em] text-white/75">{t.macBadge}</span>
+            </div>
+            <p className="mb-4 text-sm leading-relaxed text-white/72">{t.macText}</p>
+            <div className="flex flex-wrap gap-2.5">
+              {macosStack.map((tool) => (
+                <span key={tool} className="neon-tag-soft">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </article>
+        </div>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {t.cards.map((card, index) => {
             const Icon = icons[index]
             return (
