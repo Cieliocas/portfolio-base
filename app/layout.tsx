@@ -1,21 +1,25 @@
 import type { Metadata, Viewport } from 'next'
-import { Orbitron, Space_Grotesk } from 'next/font/google'
+import { Geist, JetBrains_Mono } from 'next/font/google'
 import { SiteSettingsProvider } from '@/hooks/use-site-settings'
 import './globals.css'
 
-const headingFont = Orbitron({
+const geist = Geist({
   subsets: ['latin'],
-  variable: '--font-heading',
+  variable: '--font-geist',
+  weight: ['300', '400', '500', '600', '700', '800'],
 })
 
-const bodyFont = Space_Grotesk({
+const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
-  variable: '--font-body',
+  variable: '--font-mono',
+  weight: ['400', '500', '700'],
+  style: ['normal', 'italic'],
 })
 
 export const metadata: Metadata = {
   title: 'Francielio Castro | DevOps, Cloud & HPC',
-  description: 'Portfolio de Francielio Castro com foco em DevOps, Cloud Engineering, HPC e Infraestrutura de IA.',
+  description:
+    'Portfolio de Francielio Castro com foco em DevOps, Cloud Engineering, HPC e Infraestrutura de IA.',
   icons: {
     icon: [{ url: '/favicon-f.png', type: 'image/png' }],
     shortcut: '/favicon-f.png',
@@ -24,17 +28,15 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#070b1a',
+  themeColor: '#f9f9fb',
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${headingFont.variable} ${bodyFont.variable} font-sans antialiased`}>
+      <body className={`${geist.variable} ${jetbrainsMono.variable} antialiased`}>
         <SiteSettingsProvider>{children}</SiteSettingsProvider>
       </body>
     </html>
