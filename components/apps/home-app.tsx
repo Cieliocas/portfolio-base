@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image'
-import { Terminal, FileText, FolderOpen, ExternalLink, Copy, Check, Mail, Phone } from 'lucide-react'
+import { Terminal, FileText, FolderOpen, ExternalLink, Copy, Check, Mail, Phone, Linkedin, Github, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useSiteSettings } from '@/hooks/use-site-settings'
@@ -210,6 +210,34 @@ export function HomeApp({ onNavigate }: Props) {
               <FolderOpen className="w-3.5 h-3.5" />
               {language === 'pt' ? 'Projetos' : 'Projects'}
             </button>
+          </div>
+
+          {/* Compact contact strip — mobile only (the contact window is
+              hidden below 760px; this keeps the links reachable on phones) */}
+          <div className="home-contact-strip">
+            <span className="home-contact-strip-label">
+              {language === 'pt' ? 'Contato' : 'Contact'}
+            </span>
+            <div className="home-contact-strip-row">
+              {[
+                { label: 'LinkedIn', href: 'https://linkedin.com/in/cieliocas', Icon: Linkedin },
+                { label: 'GitHub', href: 'https://github.com/cieliocas', Icon: Github },
+                { label: 'Email', href: 'mailto:hamtarf2@gmail.com', Icon: Mail },
+                { label: 'WhatsApp', href: `https://wa.me/5586988217293?text=${encodeURIComponent(contact.whatsappText)}`, Icon: MessageCircle },
+              ].map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="home-contact-chip"
+                  aria-label={label}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span>{label}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </Window>
       </motion.div>

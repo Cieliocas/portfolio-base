@@ -589,6 +589,52 @@ body {
   .home-contact-window { display: none; } /* collapsed on mobile */
 }
 
+/* Compact contact strip inside the main window — mobile only.
+   Hidden by default; the @media AFTER this rule switches it on below
+   760px (must come after, or the base rule would win the cascade),
+   exactly where .home-contact-window switches off. */
+.home-contact-strip {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 24px 20px;
+  border-top: 1px solid rgba(var(--ink),0.05);
+}
+.home-contact-strip-label {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--os-on-dim);
+}
+.home-contact-strip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.home-contact-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--os-on-surface);
+  border: 1px solid var(--ghost-border);
+  background: var(--ghost-bg);
+  transition: background 0.14s, transform 0.12s;
+}
+.home-contact-chip:hover  { background: var(--ghost-hover); }
+.home-contact-chip:active { transform: scale(0.96); }
+.home-contact-chip svg { color: var(--lime-dark); }
+
+/* Switch the strip on at the same breakpoint the contact window switches
+   off. Placed after the base rule so it wins the cascade at ≤760px. */
+@media (max-width: 760px) {
+  .home-contact-strip { display: flex; }
+}
+
 .home-stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
