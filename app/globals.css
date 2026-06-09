@@ -8,9 +8,14 @@
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  /* Font stacks */
-  --font-ui:   var(--font-geist),      'Geist',          ui-sans-serif, system-ui, sans-serif;
-  --font-code: var(--font-mono), 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  /* Font stacks
+     NOTE: the next/font vars (--font-geist, --font-mono) are declared on <body>,
+     so they are EMPTY at :root. Use them with an in-var fallback — a bare
+     var(--font-mono) here has no fallback, becomes invalid at :root, and
+     poisons the whole declaration to empty (which then made every
+     var(--font-code)/var(--font-ui) silently fall back to the sans body font). */
+  --font-ui:   var(--font-geist, 'Geist'),       ui-sans-serif, system-ui, sans-serif;
+  --font-code: var(--font-mono, 'JetBrains Mono'), ui-monospace, 'Courier New', monospace;
 
   /* ── Surface scale ── */
   --os-bg:              #f9f9fb;
@@ -86,9 +91,12 @@
 
 /* ═══════════════════════════════════════════════════════════════
    Base reset
+   NOTE: do not add an unlayered universal reset such as
+   "everything { margin: 0; padding: 0 }" here. Tailwind v4 already
+   resets margin and padding inside its preflight (in @layer base),
+   and an unlayered rule outranks @layer utilities, which would
+   silently zero out every spacing utility (padding and margin).
    ═══════════════════════════════════════════════════════════════ */
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html {
   height: 100%;
@@ -421,8 +429,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px 8px;
-  gap: 2px;
+  padding: 14px 12px;
+  gap: 4px;
   border-right: 1px solid rgba(0,0,0,0.04);
 }
 .home-stat-cell:last-child { border-right: none; }
@@ -464,36 +472,103 @@ body {
 /* Powerline prompt */
 .prompt-row { display: flex; align-items: center; margin-bottom: 4px; flex-wrap: wrap; }
 
+.ps-user, .ps-host, .ps-dir {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-weight: 700; font-size: 12px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 50%, calc(100% - 8px) 100%, 0 100%);
+}
+
 .ps-user {
-  display: inline-flex; align-items: center; gap: 4px;
   background: var(--lime-dark); color: #fff;
-  font-weight: 700; font-size: 12px;
-  padding: 2px 18px 2px 10px;
-  clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+  padding: 2px 16px 2px 10px;
 }
-
+.ps-host {
+  background: var(--lime-mid); color: #1d2b00;
+  padding: 2px 16px 2px 14px;
+  margin-left: -9px;
+}
 .ps-dir {
-  display: inline-flex; align-items: center; gap: 4px;
   background: var(--lime); color: var(--lime-dark);
-  font-weight: 700; font-size: 12px;
-  padding: 2px 18px 2px 6px;
-  clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+  padding: 2px 16px 2px 14px;
+  margin-left: -9px;
 }
-
-.ps-branch {
-  display: inline-flex; align-items: center; gap: 4px;
-  background: var(--os-surface-hi); color: var(--os-on-dim);
-  font-size: 11.5px;
-  padding: 2px 10px 2px 6px;
-  border-radius: 0 4px 4px 0;
-}
+.ps-user svg, .ps-host svg, .ps-dir svg { opacity: 0.85; }
 
 .ps-cmd { margin-left: 10px; font-size: 13px; color: var(--os-on-surface); }
+
+/* Interactive input */
+.term-input-wrap { display: inline-flex; align-items: center; flex: 1; min-width: 80px; }
+.term-input {
+  flex: 1; min-width: 60px;
+  background: transparent; border: none; outline: none;
+  font-family: var(--font-code); font-size: 13px;
+  color: var(--os-on-surface);
+  caret-color: var(--lime-dark);
+  padding: 0;
+}
+
+/* Connection status (title bar) */
+.term-conn {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 600; font-family: var(--font-code);
+  color: var(--lime-dark); white-space: nowrap;
+}
+.term-conn-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--lime-mid);
+  box-shadow: 0 0 6px var(--lime-mid);
+  animation: termBlink 2s ease-in-out infinite;
+}
+
+/* ASCII banner */
+.term-ascii {
+  font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace;
+  font-size: 13px;
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--lime-dark);
+  margin: 8px 0 14px;
+  white-space: pre;
+  overflow-x: auto;
+  letter-spacing: 0;
+  font-feature-settings: 'liga' 0, 'calt' 0;
+}
+
+/* MOTD system box */
+.term-motd {
+  border: 1px solid var(--lime);
+  background: var(--lime-bg);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin: 2px 0 8px;
+  max-width: 560px;
+}
+.term-motd-head {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px;
+  padding-bottom: 10px; margin-bottom: 10px;
+  border-bottom: 1px solid rgba(76,103,0,0.18);
+}
+.term-motd-title { font-weight: 700; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime-dark); }
+.term-motd-tag { font-size: 11.5px; font-style: italic; color: var(--os-on-dim); }
+.term-motd-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px 20px; }
+@media (max-width: 520px) { .term-motd-grid { grid-template-columns: 1fr; } }
+.term-motd-cell { display: flex; align-items: baseline; gap: 8px; }
+.term-motd-label { font-size: 11px; color: var(--os-on-dim); min-width: 74px; }
+.term-motd-value { font-size: 12px; font-weight: 600; color: var(--os-on-surface); }
+
+/* ls grid */
+.term-ls { display: flex; flex-wrap: wrap; gap: 4px 22px; margin: 2px 0 4px; }
+.term-ls-dir  { color: var(--lime-dark); font-weight: 700; }
+.term-ls-file { color: var(--os-on-surface); opacity: 0.85; }
 
 /* Output lines */
 .term-line         { padding-left: 2px; white-space: pre-wrap; }
 .term-line-dim     { color: var(--os-on-dim); font-style: italic; }
-.term-line-success { color: var(--lime-dark); font-weight: 600; }
+.term-line-success { color: var(--lime-dark); font-weight: 700; }
+.term-line-error   { color: #c0392b; }
+.term-line-warn    { color: #a87b00; }
+.term-line-comment { color: var(--os-on-dim); }
+.term-line-body    { color: var(--os-on-surface); opacity: 0.85; }
 .term-line-quote {
   color: var(--lime-dark);
   font-style: italic;
@@ -501,7 +576,7 @@ body {
   padding-left: 12px;
   margin: 2px 0;
 }
-.term-line-key { color: #516060; }
+.term-line-key { color: #516060; font-weight: 600; }
 .term-line-str { color: #4c6700; }
 .term-line-arr { color: var(--os-on-dim); }
 
@@ -558,14 +633,14 @@ body {
 .projects-sidebar {
   border-right: 1px solid rgba(0,0,0,0.06);
   overflow-y: auto;
-  padding: 12px 8px;
+  padding: 14px 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
 }
 
 .projects-sidebar-head {
-  padding: 4px 8px 8px;
+  padding: 4px 12px 8px;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -577,7 +652,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 10px;
+  padding: 8px 12px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.12s;
@@ -694,7 +769,7 @@ body {
 .journey-sidebar {
   border-right: 1px solid rgba(0,0,0,0.06);
   overflow-y: auto;
-  padding: 12px 8px;
+  padding: 14px 10px;
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -704,7 +779,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 9px 10px;
+  padding: 9px 12px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.12s;
@@ -715,7 +790,7 @@ body {
   font-family: var(--font-ui);
 }
 .journey-nav-item:hover  { background: rgba(0,0,0,0.04); }
-.journey-nav-item.active { background: var(--lime-bg); border-left: 3px solid var(--lime); padding-left: 7px; }
+.journey-nav-item.active { background: var(--lime-bg); border-left: 3px solid var(--lime); padding-left: 9px; }
 
 .journey-nav-title  { font-size: 12px; font-weight: 600; color: var(--os-on-surface); line-height: 1.3; }
 .journey-nav-org    { font-size: 11px; color: var(--os-on-dim); }

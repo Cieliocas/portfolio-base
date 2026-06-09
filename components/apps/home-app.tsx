@@ -74,7 +74,7 @@ export function HomeApp({ onNavigate }: Props) {
       >
         <Window title={`Francielio Castro — DevOps`}>
           {/* Profile area */}
-          <div className="flex flex-col sm:flex-row gap-5 p-7 pb-5">
+          <div className="flex flex-col sm:flex-row gap-7 px-12 pt-12 pb-8">
             {/* Photo */}
             <div className="flex-shrink-0 self-start">
               <div
@@ -93,7 +93,7 @@ export function HomeApp({ onNavigate }: Props) {
             </div>
 
             {/* Text */}
-            <div className="flex flex-col gap-3 flex-1 min-w-0">
+            <div className="flex flex-col gap-4 flex-1 min-w-0">
               {/* Badge */}
               <span
                 className="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-[10.5px] font-semibold tracking-[0.08em] uppercase border"
@@ -122,7 +122,7 @@ export function HomeApp({ onNavigate }: Props) {
               </p>
 
               {/* Highlight tags */}
-              <div className="flex flex-wrap gap-1.5 mt-0.5">
+              <div className="flex flex-wrap gap-1.5 mt-1">
                 {hero.highlights.map((tag) => (
                   <span
                     key={tag}
@@ -167,7 +167,7 @@ export function HomeApp({ onNavigate }: Props) {
 
           {/* CTA row */}
           <div
-            className="flex flex-wrap items-center gap-2.5 px-6 py-4"
+            className="flex flex-wrap items-center gap-3 px-12 py-5"
             style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}
           >
             <button
@@ -226,29 +226,18 @@ export function HomeApp({ onNavigate }: Props) {
           className="h-full"
         >
           {/* Slightly warm tint inside */}
-          <div className="p-5 flex flex-col gap-4" style={{ background: 'rgba(255,253,230,0.22)' }}>
-            {/* Available badge */}
-            <div
-              className="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em]"
-              style={{ background: 'var(--lime-bg)', color: 'var(--lime-dark)', border: '1px solid var(--lime)' }}
-            >
-              <span
-                className="w-1.5 h-1.5 rounded-full animate-pulse"
-                style={{ background: 'var(--lime-dark)' }}
-              />
-              {contact.summary.split(' ').slice(0, 2).join(' ')}
-            </div>
+          <div className="px-8 py-7 flex flex-col gap-5" style={{ background: 'rgba(255,253,230,0.22)' }}>
 
-            {/* Links */}
-            <div className="flex flex-col gap-0" style={{ borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: '12px' }}>
+            {/* Social links */}
+            <div className="flex flex-col gap-0">
               <p
-                className="text-[9.5px] font-bold uppercase tracking-[0.14em] pb-2"
+                className="text-[9.5px] font-bold uppercase tracking-[0.14em] pb-3"
                 style={{ color: 'var(--os-on-dim)' }}
               >
                 {language === 'pt' ? 'Redes' : 'Socials'}
               </p>
               {contactLinks.slice(0, 2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[13px] font-medium" style={{ color: 'var(--os-on-surface)' }}>{link.label}</span>
@@ -268,15 +257,15 @@ export function HomeApp({ onNavigate }: Props) {
               ))}
             </div>
 
-            <div className="flex flex-col gap-0" style={{ borderTop: '1px solid rgba(0,0,0,0.06)', paddingTop: '12px' }}>
+            <div className="flex flex-col gap-0" style={{ borderTop: '1px solid rgba(0,0,0,0.07)', paddingTop: '18px', marginTop: '4px' }}>
               <p
-                className="text-[9.5px] font-bold uppercase tracking-[0.14em] pb-2"
+                className="text-[9.5px] font-bold uppercase tracking-[0.14em] pb-3"
                 style={{ color: 'var(--os-on-dim)' }}
               >
                 {language === 'pt' ? 'Contato Direto' : 'Direct Contact'}
               </p>
               {contactLinks.slice(2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[12.5px]" style={{ color: 'var(--os-on-surface)' }}>{link.value}</span>
@@ -296,12 +285,6 @@ export function HomeApp({ onNavigate }: Props) {
               ))}
             </div>
 
-            {/* Tags */}
-            <p className="text-[10px] italic mt-1" style={{ color: 'var(--os-on-dim)' }}>
-              {language === 'pt'
-                ? 'Tags: #DevOps #HPC #CloudEngineering'
-                : 'Tags: #DevOps #HPC #CloudEngineering'}
-            </p>
           </div>
         </Window>
       </motion.div>
