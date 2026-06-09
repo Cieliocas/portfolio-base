@@ -27,6 +27,7 @@ export const siteCopy = {
       workflow: 'macOS workflow + terminal-first development',
       highlights: ['HPC Clusters', 'DevOps & Cloud', 'AI Infrastructure + Agents'],
       photoAlt: 'Foto de Francielio Castro',
+      resumeUrl: '/resume-francielio.pdf',
       locationLabel: 'Base',
       roleLabel: 'Role',
       stackLabel: 'Stack',
@@ -83,6 +84,24 @@ export const siteCopy = {
         },
       ],
     },
+    viewMenu: {
+      courses: 'Cursos',
+      languages: 'Línguas',
+      coursesTitle: 'Cursos & Certificações',
+      languagesTitle: 'Idiomas',
+    },
+    courses: [
+      { org: 'Hackatruck Maker Space — IBM', period: '2026', desc: 'Desenvolvimento mobile, IoT e integração com cloud.' },
+      { org: 'Trilha AWS Academy — UFPI', period: '2026', desc: 'Cloud Foundations, Architecting, Operations, Developing, Security, Machine Learning, Data Engineering e Generative AI Foundations.' },
+      { org: 'EBAC', period: '2024 – Atual', desc: 'Desenvolvedor Fullstack Python, com foco em back-end, APIs e boas práticas.' },
+      { org: 'Google', period: '2023', desc: 'Certificado Profissional de Gestão de Projetos (metodologias ágeis, Scrum, Kanban).' },
+      { org: 'Cisco', period: '2026', desc: 'Linux Essentials (70h) — em andamento.' },
+      { org: 'AWS Educate', period: '2026', desc: 'AWS Cloud Essentials — em andamento.' },
+    ],
+    languages: [
+      { name: 'Português', level: 'Nativo', pct: 100 },
+      { name: 'Inglês', level: 'B1 — Intermediário', pct: 55 },
+    ],
     journey: {
       kicker: 'Jornada',
       title: 'Experiencia e projetos em infraestrutura',
@@ -209,6 +228,8 @@ export const siteCopy = {
       workflow: 'macOS workflow + terminal-first development',
       highlights: ['HPC Clusters', 'DevOps & Cloud', 'AI Infrastructure + Agents'],
       photoAlt: 'Photo of Francielio Castro',
+      // TODO: trocar para '/resume-francielio-en.pdf' quando o PDF em inglês for adicionado em public/
+      resumeUrl: '/resume-francielio.pdf',
       locationLabel: 'Base',
       roleLabel: 'Role',
       stackLabel: 'Stack',
@@ -265,6 +286,24 @@ export const siteCopy = {
         },
       ],
     },
+    viewMenu: {
+      courses: 'Courses',
+      languages: 'Languages',
+      coursesTitle: 'Courses & Certifications',
+      languagesTitle: 'Languages',
+    },
+    courses: [
+      { org: 'Hackatruck Maker Space — IBM', period: '2026', desc: 'Mobile development, IoT and cloud integration.' },
+      { org: 'AWS Academy Track — UFPI', period: '2026', desc: 'Cloud Foundations, Architecting, Operations, Developing, Security, Machine Learning, Data Engineering and Generative AI Foundations.' },
+      { org: 'EBAC', period: '2024 – Present', desc: 'Fullstack Python Developer, focused on back-end, APIs and best practices.' },
+      { org: 'Google', period: '2023', desc: 'Professional Project Management Certificate (agile methodologies, Scrum, Kanban).' },
+      { org: 'Cisco', period: '2026', desc: 'Linux Essentials (70h) — in progress.' },
+      { org: 'AWS Educate', period: '2026', desc: 'AWS Cloud Essentials — in progress.' },
+    ],
+    languages: [
+      { name: 'Portuguese', level: 'Native', pct: 100 },
+      { name: 'English', level: 'B1 — Intermediate', pct: 55 },
+    ],
     journey: {
       kicker: 'Journey',
       title: 'Experience and infrastructure projects',

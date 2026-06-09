@@ -184,7 +184,7 @@ export function HomeApp({ onNavigate }: Props) {
             </button>
 
             <a
-              href="/resume-francielio.pdf"
+              href={hero.resumeUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-[12.5px] font-medium transition-all hover:bg-[var(--ghost-hover)]"

@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { Sun, Moon, ChevronDown } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import { SettingsPanel } from '@/components/os/settings-panel'
+import { ViewMenu } from '@/components/os/view-menu'
 import type { AppId } from '@/app/page'
 
 const APP_MENUS: Record<AppId, string[]> = {
@@ -58,9 +59,11 @@ export function Menubar({ activeApp }: Props) {
         </div>
         <span className="os-menubar-app">{appName}</span>
         <nav className="os-menubar-nav hidden sm:flex" aria-label="App menu">
-          {menus.map((item) => (
-            <span key={item} className="os-menubar-item">{item}</span>
-          ))}
+          {menus.map((item) =>
+            item === 'View'
+              ? <ViewMenu key={item} />
+              : <span key={item} className="os-menubar-item">{item}</span>,
+          )}
         </nav>
       </div>
 
