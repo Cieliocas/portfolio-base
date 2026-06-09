@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import { Sun, Moon } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import type { AppId } from '@/app/page'
 
@@ -23,7 +24,7 @@ type Props = {
 }
 
 export function Menubar({ activeApp }: Props) {
-  const { language, setLanguage } = useSiteSettings()
+  const { language, setLanguage, theme, setTheme } = useSiteSettings()
   const [time, setTime] = useState('')
 
   useEffect(() => {
@@ -52,6 +53,18 @@ export function Menubar({ activeApp }: Props) {
 
       {/* Right — system tray */}
       <div className="os-menubar-right">
+        {/* Theme toggle */}
+        <button
+          className="os-theme-btn"
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+          title={theme === 'dark' ? 'Light mode' : 'Dark mode'}
+        >
+          {theme === 'dark'
+            ? <Sun className="w-3.5 h-3.5" />
+            : <Moon className="w-3.5 h-3.5" />}
+        </button>
+
         {/* Language toggle */}
         <div className="os-lang-toggle" role="group" aria-label="Language">
           <button

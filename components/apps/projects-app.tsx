@@ -64,7 +64,7 @@ export function ProjectsApp() {
               ))}
 
               {/* Divider */}
-              <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+              <div className="mt-3 pt-3" style={{ borderTop: '1px solid rgba(var(--ink),0.06)' }}>
                 <p className="projects-sidebar-head">Stack</p>
                 {project.stack.slice(0, 5).map((s) => (
                   <div key={s} className="px-3 py-1 text-[11.5px]" style={{ color: 'var(--os-on-dim)' }}>
@@ -162,7 +162,7 @@ export function ProjectsApp() {
                 {/* Footer / link */}
                 <div
                   className="flex flex-col gap-2 pt-3"
-                  style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}
+                  style={{ borderTop: '1px solid rgba(var(--ink),0.06)' }}
                 >
                   <p className="text-[11.5px]" style={{ color: 'var(--os-on-dim)' }}>
                     {project.footer}

@@ -19,7 +19,7 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handle}
-      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-black/6 transition-all"
+      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-[rgba(var(--ink),0.06)] transition-all"
       title="Copy"
     >
       {copied
@@ -79,7 +79,7 @@ export function HomeApp({ onNavigate }: Props) {
             <div className="flex-shrink-0 self-start">
               <div
                 className="w-28 h-28 rounded-full overflow-hidden border-[3px] border-white/55 shadow-md"
-                style={{ boxShadow: '0 4px 20px rgba(0,0,0,0.1)' }}
+                style={{ boxShadow: '0 4px 20px rgba(var(--ink),0.1)' }}
               >
                 <Image
                   src="/profile-1758510032384.jpeg"
@@ -128,9 +128,9 @@ export function HomeApp({ onNavigate }: Props) {
                     key={tag}
                     className="rounded-full px-3 py-1 text-[11px] font-medium"
                     style={{
-                      background: 'rgba(0,0,0,0.05)',
+                      background: 'rgba(var(--ink),0.05)',
                       color: 'var(--os-on-variant)',
-                      border: '1px solid rgba(0,0,0,0.08)',
+                      border: '1px solid rgba(var(--ink),0.08)',
                     }}
                   >
                     {tag}
@@ -148,7 +148,7 @@ export function HomeApp({ onNavigate }: Props) {
               { k: hero.stackLabel,    v: 'Go + Linux' },
               { k: hero.statusLabel,   v: hero.statusValue },
             ].map(({ k, v }, i) => (
-              <div key={k} className="home-stat-cell" style={{ borderRight: i < 3 ? '1px solid rgba(0,0,0,0.05)' : 'none' }}>
+              <div key={k} className="home-stat-cell" style={{ borderRight: i < 3 ? '1px solid rgba(var(--ink),0.05)' : 'none' }}>
                 <span
                   className="text-[9.5px] font-bold uppercase tracking-[0.14em]"
                   style={{ color: 'var(--os-on-dim)' }}
@@ -168,14 +168,14 @@ export function HomeApp({ onNavigate }: Props) {
           {/* CTA row */}
           <div
             className="flex flex-wrap items-center gap-3 px-6 py-5 sm:px-12"
-            style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}
+            style={{ borderTop: '1px solid rgba(var(--ink),0.05)' }}
           >
             <button
               onClick={() => onNavigate('terminal')}
               className="inline-flex items-center gap-2 rounded-xl px-4 py-2 text-[12.5px] font-bold transition-all active:scale-95 hover:brightness-105"
               style={{
                 background: 'var(--lime)',
-                color: 'var(--lime-dark)',
+                color: 'var(--lime-ink)',
                 boxShadow: '0 0 18px var(--lime-glow)',
               }}
             >
@@ -187,10 +187,10 @@ export function HomeApp({ onNavigate }: Props) {
               href="/resume-francielio.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-[12.5px] font-medium transition-all hover:bg-white/40"
+              className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-[12.5px] font-medium transition-all hover:bg-[var(--ghost-hover)]"
               style={{
-                borderColor: 'rgba(255,255,255,0.5)',
-                background: 'rgba(255,255,255,0.25)',
+                borderColor: 'var(--ghost-border)',
+                background: 'var(--ghost-bg)',
                 color: 'var(--os-on-surface)',
               }}
             >
@@ -200,10 +200,10 @@ export function HomeApp({ onNavigate }: Props) {
 
             <button
               onClick={() => onNavigate('projects')}
-              className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-[12.5px] font-medium transition-all hover:bg-white/40"
+              className="inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-[12.5px] font-medium transition-all hover:bg-[var(--ghost-hover)]"
               style={{
-                borderColor: 'rgba(255,255,255,0.5)',
-                background: 'rgba(255,255,255,0.25)',
+                borderColor: 'var(--ghost-border)',
+                background: 'var(--ghost-bg)',
                 color: 'var(--os-on-surface)',
               }}
             >
@@ -226,7 +226,7 @@ export function HomeApp({ onNavigate }: Props) {
           className="h-full"
         >
           {/* Slightly warm tint inside */}
-          <div className="px-8 py-7 flex flex-col gap-5" style={{ background: 'rgba(255,253,230,0.22)' }}>
+          <div className="px-8 py-7 flex flex-col gap-5" style={{ background: 'var(--note-tint)' }}>
 
             {/* Social links */}
             <div className="flex flex-col gap-0">
@@ -237,7 +237,7 @@ export function HomeApp({ onNavigate }: Props) {
                 {language === 'pt' ? 'Redes' : 'Socials'}
               </p>
               {contactLinks.slice(0, 2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[13px] font-medium" style={{ color: 'var(--os-on-surface)' }}>{link.label}</span>
@@ -247,7 +247,7 @@ export function HomeApp({ onNavigate }: Props) {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-black/5 transition-all"
+                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-[rgba(var(--ink),0.05)] transition-all"
                     >
                       <ExternalLink className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     </a>
@@ -257,7 +257,7 @@ export function HomeApp({ onNavigate }: Props) {
               ))}
             </div>
 
-            <div className="flex flex-col gap-0" style={{ borderTop: '1px solid rgba(0,0,0,0.07)', paddingTop: '18px', marginTop: '4px' }}>
+            <div className="flex flex-col gap-0" style={{ borderTop: '1px solid rgba(var(--ink),0.07)', paddingTop: '18px', marginTop: '4px' }}>
               <p
                 className="text-[9.5px] font-bold uppercase tracking-[0.14em] pb-3"
                 style={{ color: 'var(--os-on-dim)' }}
@@ -265,7 +265,7 @@ export function HomeApp({ onNavigate }: Props) {
                 {language === 'pt' ? 'Contato Direto' : 'Direct Contact'}
               </p>
               {contactLinks.slice(2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(0,0,0,0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[12.5px]" style={{ color: 'var(--os-on-surface)' }}>{link.value}</span>
@@ -275,7 +275,7 @@ export function HomeApp({ onNavigate }: Props) {
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-black/5 transition-all"
+                      className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-[rgba(var(--ink),0.05)] transition-all"
                     >
                       <ExternalLink className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     </a>

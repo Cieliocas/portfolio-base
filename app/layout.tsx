@@ -35,7 +35,16 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR">
+    <html lang="pt-BR" suppressHydrationWarning>
+      <head>
+        {/* No-flash: apply the saved/preferred theme before first paint
+            so dark-mode users never see a flash of the light theme. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('site-theme');if(!t)t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body className={`${geist.variable} ${jetbrainsMono.variable} antialiased`}>
         <SiteSettingsProvider>{children}</SiteSettingsProvider>
       </body>

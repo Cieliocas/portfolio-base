@@ -50,7 +50,7 @@ export function JourneyApp() {
             })}
 
             {/* About cards in sidebar bottom */}
-            <div className="mt-auto pt-4" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+            <div className="mt-auto pt-4" style={{ borderTop: '1px solid rgba(var(--ink),0.06)' }}>
               <p className="projects-sidebar-head" style={{ padding: '4px 8px 8px' }}>
                 {language === 'pt' ? 'Sobre' : 'About'}
               </p>
@@ -126,7 +126,7 @@ export function JourneyApp() {
               </div>
 
               {/* About notes from current entry */}
-              <div className="mt-8 pt-6" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+              <div className="mt-8 pt-6" style={{ borderTop: '1px solid rgba(var(--ink),0.06)' }}>
                 <p className="journey-comment mb-3"># {language === 'pt' ? 'Notas pessoais' : 'Personal notes'}</p>
                 {about.notes.map((note, i) => (
                   <p
