@@ -237,7 +237,7 @@ export function HomeApp({ onNavigate }: Props) {
                 {language === 'pt' ? 'Redes' : 'Socials'}
               </p>
               {contactLinks.slice(0, 2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5 px-2 -mx-2 rounded-md transition-colors hover:bg-[rgba(var(--ink),0.035)]" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[13px] font-medium" style={{ color: 'var(--os-on-surface)' }}>{link.label}</span>
@@ -265,7 +265,7 @@ export function HomeApp({ onNavigate }: Props) {
                 {language === 'pt' ? 'Contato Direto' : 'Direct Contact'}
               </p>
               {contactLinks.slice(2).map((link) => (
-                <div key={link.label} className="group flex items-center justify-between py-2.5" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
+                <div key={link.label} className="group flex items-center justify-between py-2.5 px-2 -mx-2 rounded-md transition-colors hover:bg-[rgba(var(--ink),0.035)]" style={{ borderBottom: '1px solid rgba(var(--ink),0.04)' }}>
                   <div className="flex items-center gap-2">
                     <link.icon className="w-3.5 h-3.5" style={{ color: 'var(--secondary)' }} />
                     <span className="text-[12.5px]" style={{ color: 'var(--os-on-surface)' }}>{link.value}</span>
