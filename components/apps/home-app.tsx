@@ -226,7 +226,7 @@ export function HomeApp({ onNavigate }: Props) {
           className="h-full"
         >
           {/* Slightly warm tint inside */}
-          <div className="px-8 py-7 flex flex-col gap-5" style={{ background: 'var(--note-tint)' }}>
+          <div className="px-8 py-7 flex flex-col gap-5 h-full" style={{ background: 'var(--note-tint)' }}>
 
             {/* Social links */}
             <div className="flex flex-col gap-0">
@@ -283,6 +283,20 @@ export function HomeApp({ onNavigate }: Props) {
                   </div>
                 </div>
               ))}
+            </div>
+
+            {/* Closing note — pinned to the bottom, balances the card height */}
+            <div
+              className="mt-auto pt-5 flex items-center gap-2"
+              style={{ borderTop: '1px solid rgba(var(--ink),0.06)' }}
+            >
+              <span
+                className="w-1.5 h-1.5 rounded-full flex-shrink-0 animate-pulse"
+                style={{ background: 'var(--lime-mid)' }}
+              />
+              <p className="text-[11.5px] leading-snug italic" style={{ color: 'var(--os-on-dim)' }}>
+                {contact.title}
+              </p>
             </div>
 
           </div>
