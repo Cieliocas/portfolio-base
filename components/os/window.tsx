@@ -1,4 +1,7 @@
+"use client"
+
 import type { ReactNode } from 'react'
+import { X } from 'lucide-react'
 
 type WindowProps = {
   title: string
@@ -7,6 +10,9 @@ type WindowProps = {
   className?: string
   bodyClassName?: string
   rightSlot?: ReactNode
+  /** When provided, the red traffic light becomes a working close button
+   *  (shows an X on hover, macOS-style). */
+  onClose?: () => void
 }
 
 export function Window({
@@ -16,13 +22,20 @@ export function Window({
   className = '',
   bodyClassName = '',
   rightSlot,
+  onClose,
 }: WindowProps) {
   return (
     <div className={`os-window ${className}`}>
       <div className="os-window-bar">
         {/* Traffic lights */}
         <div className="tl-cluster">
-          <span className="tl tl-r" />
+          {onClose ? (
+            <button className="tl tl-r tl-close" onClick={onClose} aria-label="Close" title="Close">
+              <X className="tl-close-icon" strokeWidth={3} />
+            </button>
+          ) : (
+            <span className="tl tl-r" />
+          )}
           <span className="tl tl-y" />
           <span className="tl tl-g" />
         </div>

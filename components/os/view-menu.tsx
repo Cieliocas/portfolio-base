@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GraduationCap, Languages as LanguagesIcon, X } from 'lucide-react'
+import { GraduationCap, Languages as LanguagesIcon } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import { siteCopy } from '@/lib/site-copy'
 import { Window } from '@/components/os/window'
@@ -106,11 +106,7 @@ export function ViewMenu() {
                     ? <GraduationCap className="w-3 h-3" />
                     : <LanguagesIcon className="w-3 h-3" />
                 }
-                rightSlot={
-                  <button className="os-modal-close" onClick={() => setPopup(null)} aria-label="Close">
-                    <X className="w-3.5 h-3.5" />
-                  </button>
-                }
+                onClose={() => setPopup(null)}
                 bodyClassName="os-modal-body"
               >
                 {popup === 'courses' ? (
