@@ -381,19 +381,16 @@ body {
 
 /* ── View menu (interactive) ─────────────────────────────────── */
 .os-viewmenu-wrap { position: relative; display: inline-flex; }
+/* Looks identical to the other .os-menubar-item entries (padding,
+   font-size, opacity, radius all inherited); only adds button reset +
+   pointer cursor so it's clickable. */
 .os-viewmenu-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
   border: none;
   background: transparent;
-  font: inherit;
+  font-family: inherit;
   cursor: pointer;
-  opacity: 0.62;
 }
-.os-viewmenu-btn:hover, .os-viewmenu-btn.open { opacity: 1; background: rgba(var(--ink),0.05); }
-.os-viewmenu-chevron { width: 11px; height: 11px; opacity: 0.55; transition: transform 0.18s; }
-.os-viewmenu-btn.open .os-viewmenu-chevron { transform: rotate(180deg); }
+.os-viewmenu-btn.open { opacity: 0.9; background: rgba(var(--ink),0.04); }
 
 .os-viewmenu-dropdown {
   position: absolute;

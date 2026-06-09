@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { GraduationCap, Languages as LanguagesIcon, X, ChevronDown } from 'lucide-react'
+import { GraduationCap, Languages as LanguagesIcon, X } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 import { siteCopy } from '@/lib/site-copy'
 import { Window } from '@/components/os/window'
@@ -54,7 +54,6 @@ export function ViewMenu() {
           aria-expanded={menuOpen}
         >
           View
-          <ChevronDown className="os-viewmenu-chevron" />
         </button>
 
         <AnimatePresence>
