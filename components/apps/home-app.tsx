@@ -74,7 +74,7 @@ export function HomeApp({ onNavigate }: Props) {
       >
         <Window title={`Francielio Castro — DevOps`}>
           {/* Profile area */}
-          <div className="flex flex-col sm:flex-row gap-7 px-12 pt-12 pb-8">
+          <div className="flex flex-col sm:flex-row gap-5 sm:gap-7 px-6 pt-7 pb-6 sm:px-12 sm:pt-12 sm:pb-8">
             {/* Photo */}
             <div className="flex-shrink-0 self-start">
               <div
@@ -167,7 +167,7 @@ export function HomeApp({ onNavigate }: Props) {
 
           {/* CTA row */}
           <div
-            className="flex flex-wrap items-center gap-3 px-12 py-5"
+            className="flex flex-wrap items-center gap-3 px-6 py-5 sm:px-12"
             style={{ borderTop: '1px solid rgba(0,0,0,0.05)' }}
           >
             <button

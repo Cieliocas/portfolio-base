@@ -337,6 +337,15 @@ body {
   .os-dock-label { display: none; }
   .os-dock-btn   { min-width: unset; padding: 9px 10px; gap: 0; }
   .os-dock-wrap  { padding-bottom: 18px; }
+
+  /* Menubar: drop the app menu items so the lang toggle + clock fit */
+  .os-menubar-nav  { display: none; }
+  .os-menubar      { padding: 0 12px; }
+  .os-menubar-left { gap: 12px; }
+
+  /* Canvas: anchor the window to the top (so its title bar stays visible)
+     and let the canvas scroll instead of clipping a too-tall window */
+  .os-canvas { align-items: flex-start; padding: 12px 14px 16px; }
 }
 
 /* ═══════════════════════════════════════════════════════════════
