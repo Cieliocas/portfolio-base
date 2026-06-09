@@ -1,8 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, ChevronDown } from 'lucide-react'
 import { useSiteSettings } from '@/hooks/use-site-settings'
+import { SettingsPanel } from '@/components/os/settings-panel'
 import type { AppId } from '@/app/page'
 
 const APP_MENUS: Record<AppId, string[]> = {
@@ -26,6 +27,7 @@ type Props = {
 export function Menubar({ activeApp }: Props) {
   const { language, setLanguage, theme, setTheme } = useSiteSettings()
   const [time, setTime] = useState('')
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
   useEffect(() => {
     const fmt = () =>
@@ -42,7 +44,18 @@ export function Menubar({ activeApp }: Props) {
     <header className="os-menubar">
       {/* Left */}
       <div className="os-menubar-left">
-        <span className="os-menubar-brand">Cielio OS</span>
+        <div className="os-brand-wrap">
+          <button
+            className={`os-menubar-brand os-brand-btn ${settingsOpen ? 'open' : ''}`}
+            onClick={() => setSettingsOpen((v) => !v)}
+            aria-haspopup="dialog"
+            aria-expanded={settingsOpen}
+          >
+            Cielio OS
+            <ChevronDown className="os-brand-chevron" />
+          </button>
+          <SettingsPanel open={settingsOpen} onClose={() => setSettingsOpen(false)} />
+        </div>
         <span className="os-menubar-app">{appName}</span>
         <nav className="os-menubar-nav hidden sm:flex" aria-label="App menu">
           {menus.map((item) => (
